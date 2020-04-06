@@ -1,0 +1,2 @@
+rootProject.name = 'cat-proxy'
+include 'cat-proxy-api'
