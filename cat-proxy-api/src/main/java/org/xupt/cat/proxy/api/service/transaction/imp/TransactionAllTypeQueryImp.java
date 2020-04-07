@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xupt.cat.proxy.api.constant.TransactionConstant;
+import org.xupt.cat.proxy.api.constant.SystemConstant;
 import org.xupt.cat.proxy.api.domain.requests.transaction.TransactionAllTypeRequest;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.enums.ErrorCode;
@@ -39,7 +39,7 @@ public class TransactionAllTypeQueryImp implements ITransactionAllTypeQuery {
         //发送请求
         Document document= null;
         try {
-            document = HttpProxyUtil.sendHttp(TransactionConstant.ALL_TYPE_URI,
+            document = HttpProxyUtil.sendHttp(SystemConstant.TRANSACTION_URI,
                     JsonUtil.toMap(request), null);
         } catch (IOException e) {
             log.error("Query transaction all type error! param: {} e :{}", JsonUtil.toJson(request), e);
@@ -49,7 +49,7 @@ public class TransactionAllTypeQueryImp implements ITransactionAllTypeQuery {
         if (Objects.isNull(document)) {
             return ResponseUtil.buildFailResponce(ErrorCode.CAT_RESPONSE_EMPTY);
         }
-        return ResponseUtil.buildSuccessResponce(transactionCore.covertTransactionDocu(document, false));
+        return ResponseUtil.buildSuccessResponce(transactionCore.covertTransaction(document, false));
     }
 
     private BaseResponse checkParam(TransactionAllTypeRequest request) {

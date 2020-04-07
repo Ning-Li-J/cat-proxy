@@ -1,6 +1,7 @@
 package org.xupt.cat.proxy.api.service.transaction;
 
 import org.jsoup.nodes.Document;
+import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionInfoResponse;
 import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionResponse;
 
 /**
@@ -9,5 +10,7 @@ import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionResponse;
  */
 public interface ITransactionCore {
 
-    TransactionResponse covertTransactionDocu(Document document, boolean isName);
+    TransactionResponse covertTransaction(Document document, boolean isName);
+
+    TransactionInfoResponse coverTransactionInfo(Document document);
 }

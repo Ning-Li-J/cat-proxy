@@ -7,27 +7,24 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.xupt.cat.proxy.api.service.TransactionService;
+import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionInfoResponse;
+import org.xupt.cat.proxy.api.utils.JsonUtil;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         CatProxyApiApplication.class
 })
 public class CatProxyApiApplicationTests {
-    @Autowired
-    private TransactionService service;
-
     @Test
     public void test() throws IOException {
-        String url = "http://localhost:8080/cat/r/t?domain=cat&ip=All&type=URL";
+        //String url = "http://localhost:8080/cat/r/t?domain=cat&ip=All&type=URL";
+        String url = "http://localhost:8080/cat/r/t?op=graphs&domain=cat&date=2020040713&ip=All&type=Checkpoint";
         String param = "";
         Map cookies = new HashMap();
         //cookies.put("CAT_DOMAINS", "cat|thoughtcoding-api");
@@ -43,19 +40,42 @@ public class CatProxyApiApplicationTests {
 
         Connection.Response response = connection.execute();
         Document document = Jsoup.parse(response.body());
-        Elements element = document.getElementsByClass(" right");
-        System.out.println(element.size());
-        for (int i = 1; i < element.size(); i++) {
 
-            System.out.println("----------------------");
-            Elements elements = element.get(i).getElementsByTag("td");
-            Element typeElement = elements.get(0);
-            String type = typeElement.childNode(2).toString();
+        List<TransactionInfoResponse.BranchInfo> branchInfoList = new ArrayList<>();
+        Elements branchElement = document.getElementsByClass(" right");
+        for (Element element : branchElement) {
+            Elements branchIndoElements = element.getElementsByTag("td");
 
-            System.out.println("size:" + elements.size());
-            System.out.println("index0:" + type);
-            System.out.println("index1:" + elements.get(1).childNode(0));
-
+            TransactionInfoResponse.BranchInfo branchInfo = new TransactionInfoResponse.BranchInfo();
+            branchInfo.setIp(branchIndoElements.get(0).childNode(0).toString());
+            branchInfo.setTotal(branchIndoElements.get(1).childNode(0).toString());
+            branchInfo.setFailure(branchIndoElements.get(2).childNode(0).toString());
+            branchInfo.setMin(branchIndoElements.get(4).childNode(0).toString());
+            branchInfo.setMax(branchIndoElements.get(5).childNode(0).toString());
+            branchInfo.setAvg(branchIndoElements.get(7).childNode(0).toString());
+            branchInfo.setStd(branchIndoElements.get(7).childNode(0).toString());
+            branchInfoList.add(branchInfo);
         }
+        System.out.println(JsonUtil.toJson(branchInfoList));
+
+
+
+
     }
+
+    private TransactionInfoResponse.Point[] parseData(Element element) {
+        List<TransactionInfoResponse.Point> list = new ArrayList<>();
+        Elements elements = element.getElementsByTag("rect");
+        for (Element e : elements) {
+            TransactionInfoResponse.Point point = new TransactionInfoResponse.Point();
+            point.setX(e.attr("xValue"));
+            point.setY(e.attr("yValue"));
+            list.add(point);
+        }
+
+        TransactionInfoResponse.Point[] rest = new TransactionInfoResponse.Point[list.size()];
+        return list.toArray(rest);
+    }
+
+
 }

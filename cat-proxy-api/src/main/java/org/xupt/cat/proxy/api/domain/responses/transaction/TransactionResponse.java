@@ -12,10 +12,6 @@ import java.util.List;
 public class TransactionResponse {
     private List<Transaction> transactions;
 
-    /*
-Total	Failure	Failure%	Sample Link	Min(ms)	Max(ms)	Avg(ms)	95Line(ms)	99.9Line(ms)	Std(ms)	QPS
-
-*/
     @Data
     public static class Transaction{
         private String type;
@@ -28,9 +24,5 @@ Total	Failure	Failure%	Sample Link	Min(ms)	Max(ms)	Avg(ms)	95Line(ms)	99.9Line(m
         private String line999;
         private String std;
         private String qps;
-
-
-
-
     }
 }

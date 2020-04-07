@@ -6,10 +6,9 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.util.CollectionUtils;
-import org.xupt.cat.proxy.api.constant.IPConstant;
+import org.xupt.cat.proxy.api.constant.SystemConstant;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -34,7 +33,7 @@ public class HttpProxyUtil {
             }
         }
 
-        String url = IPConstant.IP_PORT + uri + "?" + paramBuild.toString();
+        String url = SystemConstant.IP_PORT + uri + "?" + paramBuild.toString();
         log.info("start connect url :{}", url);
         Connection connection = Jsoup.connect(url);
         connection.header("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
