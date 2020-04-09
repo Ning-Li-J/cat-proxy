@@ -1,4 +1,4 @@
-package org.xupt.cat.proxy.api.domain.requests.transaction;
+package org.xupt.cat.proxy.api.domain.requests.event;
 
 import lombok.Data;
 import org.xupt.cat.proxy.api.domain.requests.BaseRequest;
@@ -7,10 +7,12 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author lining
- * @data 2020-04-06 下午7:35
+ * @data 2020-04-08 下午12:37
  */
 @Data
-public class TransactionAllNameRequest extends BaseRequest {
+public class EventAllNameRequest extends BaseRequest {
+
     @NotBlank(message = "type can not be empty!")
     private String type;
+
 }

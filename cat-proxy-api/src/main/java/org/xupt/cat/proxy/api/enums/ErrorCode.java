@@ -8,9 +8,8 @@ public enum ErrorCode implements BaseEnum {
     //系统
     SUCCESS(100000, "SUCCESS"),
     SYSTEM_ERROR(500000, "System error"),
-    REQUEST_BAD(500001, "Request Bad"),
-    REQUEST_PARAM_ERROR(5000002, "Request Param Error!"),
-    CAT_RESPONSE_EMPTY(500003, "Cat response empty!");
+    REQUEST_PARAM_ERROR(500001, "Request Param Error!"),
+    CAT_RESPONSE_EMPTY(500002, "Cat response error!");
 
 
     private int code;

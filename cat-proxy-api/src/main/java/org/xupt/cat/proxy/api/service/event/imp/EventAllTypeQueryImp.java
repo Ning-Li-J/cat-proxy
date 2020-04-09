@@ -1,64 +1,60 @@
-package org.xupt.cat.proxy.api.service.transaction.imp;
+package org.xupt.cat.proxy.api.service.event.imp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xupt.cat.proxy.api.constant.CatConstant;
 import org.xupt.cat.proxy.api.constant.SystemConstant;
 import org.xupt.cat.proxy.api.domain.dto.CatDTO;
-import org.xupt.cat.proxy.api.domain.requests.transaction.TransactionAllNameRequest;
+import org.xupt.cat.proxy.api.domain.requests.event.EventAllTypeRequest;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
+import org.xupt.cat.proxy.api.domain.responses.event.EventResponse;
 import org.xupt.cat.proxy.api.enums.ErrorCode;
-import org.xupt.cat.proxy.api.service.transaction.ITransactionAllNameQuery;
-import org.xupt.cat.proxy.api.service.transaction.ITransactionCore;
+import org.xupt.cat.proxy.api.service.event.IEventAllTypeQuery;
+import org.xupt.cat.proxy.api.service.event.IEventCore;
 import org.xupt.cat.proxy.api.utils.DateUtil;
 import org.xupt.cat.proxy.api.utils.HttpProxyUtil;
 import org.xupt.cat.proxy.api.utils.JsonUtil;
 import org.xupt.cat.proxy.api.utils.ResponseUtil;
 
-import java.io.IOException;
 import java.util.Objects;
 
 /**
  * @author lining
- * @data 2020-04-06 下午7:39
+ * @data 2020-04-08 下午12:46
  */
-@Service
 @Slf4j
-public class TransactionAllNameQueryImp implements ITransactionAllNameQuery {
+@Service
+public class EventAllTypeQueryImp implements IEventAllTypeQuery {
 
     @Autowired
-    private ITransactionCore transactionCore;
+    private IEventCore eventCore;
 
     @Override
-    public BaseResponse queryAllName(TransactionAllNameRequest request) {
+    public BaseResponse queryAllType(EventAllTypeRequest request) {
+        BaseResponse response = check(request);
         //校验参数
-        BaseResponse response = checkParam(request);
         if (Objects.nonNull(response)) {
             return response;
         }
 
-        //转换http参数
-        CatDTO catDTO = covert(request);
-
-        //发送请求
-        Document document= null;
+        Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(SystemConstant.TRANSACTION_URI,
-                    JsonUtil.toMap(catDTO), null);
-        } catch (IOException e) {
-            log.error("Query transaction all name error! param: {} e :{}", JsonUtil.toJson(request), e);
+            document = HttpProxyUtil.sendHttp(SystemConstant.EVENT_URI,
+                    JsonUtil.toMap(covert(request)), null);
+        } catch (Exception e) {
+            log.error("query event all type error!", e);
         }
 
-        //解析结果
         if (Objects.isNull(document)) {
             return ResponseUtil.buildFailResponce(ErrorCode.CAT_RESPONSE_EMPTY);
         }
-        return ResponseUtil.buildSuccessResponce(transactionCore.covertTransaction(document, true));
+        EventResponse eventResponse = eventCore.covertEvent(document, false);
+        return ResponseUtil.buildSuccessResponce(eventResponse);
     }
 
-
-    private BaseResponse checkParam(TransactionAllNameRequest request) {
+    private BaseResponse check(EventAllTypeRequest request) {
         if (Objects.isNull(request)) {
             return ResponseUtil.buildFailResponce(ErrorCode.REQUEST_PARAM_ERROR);
         }
@@ -66,13 +62,13 @@ public class TransactionAllNameQueryImp implements ITransactionAllNameQuery {
         return null;
     }
 
-    private CatDTO covert(TransactionAllNameRequest request) {
+    private CatDTO covert(EventAllTypeRequest request) {
         CatDTO catDTO = new CatDTO();
-        catDTO.setDomain(request.getDomain());
         catDTO.setIp(request.getIp());
-        catDTO.setType(request.getType());
+        catDTO.setDomain(request.getDomain());
+        catDTO.setOp(CatConstant.OP_VIEW);
+        catDTO.setReportType(request.getReportType());
         catDTO.setDate(DateUtil.nowYYYYMMDDHH());
-
         if (Objects.nonNull(request.getStep())) {
             catDTO.setStep(request.getStep() + "");
         }

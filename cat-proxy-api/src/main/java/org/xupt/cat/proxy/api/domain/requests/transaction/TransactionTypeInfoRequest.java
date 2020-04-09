@@ -1,20 +1,17 @@
 package org.xupt.cat.proxy.api.domain.requests.transaction;
 
 import lombok.Data;
+import org.xupt.cat.proxy.api.domain.requests.BaseRequest;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author lining
  * @data 2020-04-07 下午12:33
  */
 @Data
-public class TransactionTypeInfoRequest {
-    private String domain;
+public class TransactionTypeInfoRequest extends BaseRequest {
 
-    private String op;
-
-    private String date;
-
-    private String ip;
-
+    @NotBlank
     private String type;
 }

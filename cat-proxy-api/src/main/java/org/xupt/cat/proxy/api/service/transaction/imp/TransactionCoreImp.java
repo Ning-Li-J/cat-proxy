@@ -4,12 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xupt.cat.proxy.api.constant.TransactionConstant;
+import org.xupt.cat.proxy.api.constant.CatConstant;
+import org.xupt.cat.proxy.api.domain.responses.TargetInfo;
 import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionInfoResponse;
 import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionResponse;
+import org.xupt.cat.proxy.api.service.ICore;
 import org.xupt.cat.proxy.api.service.transaction.ITransactionCore;
-import org.xupt.cat.proxy.api.utils.ResponseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ import java.util.List;
 @Service
 @Slf4j
 public class TransactionCoreImp implements ITransactionCore {
+
+    @Autowired
+    private ICore core;
 
     @Override
     public TransactionResponse covertTransaction(Document document, boolean isName) {
@@ -44,7 +49,7 @@ public class TransactionCoreImp implements ITransactionCore {
                 type = trElements.get(0).getElementsByTag("a").get(1).childNode(0).toString();
             }
 
-            transaction.setType(type);
+            transaction.setName(type);
             transaction.setTotal(trElements.get(1).childNode(0).toString());
             transaction.setFailure(trElements.get(2).childNode(0).toString());
             transaction.setMin(trElements.get(5).childNode(0).toString());
@@ -85,31 +90,31 @@ public class TransactionCoreImp implements ITransactionCore {
         }
 
         //解析 持续时间分布
-        TransactionInfoResponse.TargetInfo durationDistribution = new TransactionInfoResponse.TargetInfo();
-        durationDistribution.setXIndex(TransactionConstant.MILL_ARRAY);
-        durationDistribution.setYIndex(parseYt(yIndexElements[0]));
-        durationDistribution.setData(parseData(dataElements[0]));
+        TargetInfo durationDistribution = new TargetInfo();
+        durationDistribution.setXIndex(CatConstant.MILL_ARRAY);
+        durationDistribution.setYIndex(core.parseYt(yIndexElements[0]));
+        durationDistribution.setData(core.parseData(dataElements[0]));
         infoResponse.setDurationDistribution(durationDistribution);
 
         //解析 命中数量
-        TransactionInfoResponse.TargetInfo hitsNum = new TransactionInfoResponse.TargetInfo();
-        hitsNum.setXIndex(TransactionConstant.MINUTE_ARRAY);
-        hitsNum.setYIndex(parseYt(yIndexElements[1]));
-        hitsNum.setData(parseData(dataElements[1]));
+        TargetInfo hitsNum = new TargetInfo();
+        hitsNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        hitsNum.setYIndex(core.parseYt(yIndexElements[1]));
+        hitsNum.setData(core.parseData(dataElements[1]));
         infoResponse.setHitsNum(hitsNum);
 
         //解析 平均持续时间
-        TransactionInfoResponse.TargetInfo averageDurationTime = new TransactionInfoResponse.TargetInfo();
-        averageDurationTime.setXIndex(TransactionConstant.MINUTE_ARRAY);
-        averageDurationTime.setYIndex(parseYt(yIndexElements[2]));
-        averageDurationTime.setData(parseData(dataElements[2]));
+        TargetInfo averageDurationTime = new TargetInfo();
+        averageDurationTime.setXIndex(CatConstant.MINUTE_ARRAY);
+        averageDurationTime.setYIndex(core.parseYt(yIndexElements[2]));
+        averageDurationTime.setData(core.parseData(dataElements[2]));
         infoResponse.setAverageDurationTime(averageDurationTime);
 
         //解析 失败数量
-        TransactionInfoResponse.TargetInfo failuresNum = new TransactionInfoResponse.TargetInfo();
-        failuresNum.setXIndex(TransactionConstant.MINUTE_ARRAY);
-        failuresNum.setYIndex(parseYt(yIndexElements[3]));
-        failuresNum.setData(parseData(dataElements[3]));
+        TargetInfo failuresNum = new TargetInfo();
+        failuresNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        failuresNum.setYIndex(core.parseYt(yIndexElements[3]));
+        failuresNum.setData(core.parseData(dataElements[3]));
         infoResponse.setFailuresNum(failuresNum);
 
         //解析 分布统计
@@ -134,28 +139,4 @@ public class TransactionCoreImp implements ITransactionCore {
         return infoResponse;
     }
 
-    private String[] parseYt(Element element) {
-        Elements elements = element.getElementsByTag("text");
-        List<String> list = new ArrayList<>();
-        for (Element e : elements) {
-            list.add(e.childNode(0).toString().trim());
-        }
-
-        String[] rest = new String[list.size()];
-        return list.toArray(rest);
-    }
-
-    private TransactionInfoResponse.Point[] parseData(Element element) {
-        List<TransactionInfoResponse.Point> list = new ArrayList<>();
-        Elements elements = element.getElementsByTag("rect");
-        for (Element e : elements) {
-            TransactionInfoResponse.Point point = new TransactionInfoResponse.Point();
-            point.setX(e.attr("xValue"));
-            point.setY(e.attr("yValue"));
-            list.add(point);
-        }
-
-        TransactionInfoResponse.Point[] rest = new TransactionInfoResponse.Point[list.size()];
-        return list.toArray(rest);
-    }
 }

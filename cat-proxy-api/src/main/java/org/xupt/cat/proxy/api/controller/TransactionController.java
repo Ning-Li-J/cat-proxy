@@ -18,10 +18,12 @@ import org.xupt.cat.proxy.api.service.transaction.ITransactionNameInfoQuery;
 import org.xupt.cat.proxy.api.service.transaction.ITransactionTypeInfoQuery;
 import org.xupt.cat.proxy.api.utils.JsonUtil;
 
+import javax.validation.Valid;
+
 @RequestMapping("/transaction")
 @RestController
 @Slf4j
-public class TransactionQuery {
+public class TransactionController {
 
     @Autowired
     private ITransactionAllTypeQuery transactionAllTypeQuery;
@@ -36,7 +38,7 @@ public class TransactionQuery {
     private ITransactionNameInfoQuery transactionNameInfoQuery;
 
     @RequestMapping(value = "/allType", method = RequestMethod.GET)
-    public BaseResponse queryAllType(@RequestBody TransactionAllTypeRequest request) {
+    public BaseResponse queryAllType(@Valid @RequestBody TransactionAllTypeRequest request) {
         log.info("query transaction all type. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionAllTypeQuery.queryAllType(request);
         log.info("query transaction all type. response :{}", JsonUtil.toJson(response));
@@ -44,7 +46,7 @@ public class TransactionQuery {
     }
 
     @RequestMapping(value = "/typeInfo", method = RequestMethod.GET)
-    public BaseResponse queryType(@RequestBody TransactionTypeInfoRequest request) {
+    public BaseResponse queryType(@Valid @RequestBody TransactionTypeInfoRequest request) {
         log.info("query transaction type info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionTypeInfoQuery.queryTypeInfo(request);
         log.info("query transaction type info. response :{}", JsonUtil.toJson(response));
@@ -52,7 +54,7 @@ public class TransactionQuery {
     }
 
     @RequestMapping(value = "/allName", method = RequestMethod.GET)
-    public BaseResponse queryAllName(@RequestBody TransactionAllNameRequest request) {
+    public BaseResponse queryAllName(@Valid @RequestBody TransactionAllNameRequest request) {
         log.info("query transaction all name. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionAllNameQuery.queryAllName(request);
         log.info("query transaction all name. response :{}", JsonUtil.toJson(response));
@@ -60,7 +62,7 @@ public class TransactionQuery {
     }
 
     @RequestMapping(value = "/nameInfo", method = RequestMethod.GET)
-    public BaseResponse queryName(@RequestBody TransactionNameInfoRequest request) {
+    public BaseResponse queryName(@Valid @RequestBody TransactionNameInfoRequest request) {
         log.info("query transaction name info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionNameInfoQuery.queryNameInfo(request);
         log.info("query transaction name info. response :{}", JsonUtil.toJson(response));

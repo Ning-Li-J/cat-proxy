@@ -14,7 +14,7 @@ public class TransactionResponse {
 
     @Data
     public static class Transaction{
-        private String type;
+        private String name;
         private String total;
         private String failure;
         private String min;

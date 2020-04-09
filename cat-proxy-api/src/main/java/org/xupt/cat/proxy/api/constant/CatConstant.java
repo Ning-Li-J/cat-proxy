@@ -1,13 +1,19 @@
 package org.xupt.cat.proxy.api.constant;
 
+
 /**
  * @author lining
  * @data 2020-04-07 下午12:49
  */
-public class TransactionConstant {
+public class CatConstant {
+
+    public static final String OP_VIEW = "view";
+
+    public static final String OP_GRAPHS = "graphs";
 
 
-    public static String[] MINUTE_ARRAY = { "0",  "1",  "2",  "3",  "4",
+
+    public static final String[] MINUTE_ARRAY = { "0",  "1",  "2",  "3",  "4",
                                             "5",  "6",  "7",  "8",  "9",
                                             "10", "11", "12", "13", "14",
                                             "15", "16", "17", "18", "19",
@@ -22,7 +28,7 @@ public class TransactionConstant {
                                             };
 
 
-    public static String[] MILL_ARRAY = { "0",     "1",     "2",      "4",      "8",
+    public static final String[] MILL_ARRAY = { "0",     "1",     "2",      "4",      "8",
                                           "16",    "32",    "64",     "128",    "256",
                                           "512",   "1024",  "2048",   "4096",   "8192",
                                           "16384", "32768", "65536"

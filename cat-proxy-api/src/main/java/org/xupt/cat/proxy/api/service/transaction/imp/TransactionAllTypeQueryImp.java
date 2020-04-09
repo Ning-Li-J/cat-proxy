@@ -5,11 +5,14 @@ import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xupt.cat.proxy.api.constant.SystemConstant;
+import org.xupt.cat.proxy.api.constant.CatConstant;
+import org.xupt.cat.proxy.api.domain.dto.CatDTO;
 import org.xupt.cat.proxy.api.domain.requests.transaction.TransactionAllTypeRequest;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.enums.ErrorCode;
 import org.xupt.cat.proxy.api.service.transaction.ITransactionAllTypeQuery;
 import org.xupt.cat.proxy.api.service.transaction.ITransactionCore;
+import org.xupt.cat.proxy.api.utils.DateUtil;
 import org.xupt.cat.proxy.api.utils.HttpProxyUtil;
 import org.xupt.cat.proxy.api.utils.JsonUtil;
 import org.xupt.cat.proxy.api.utils.ResponseUtil;
@@ -36,11 +39,14 @@ public class TransactionAllTypeQueryImp implements ITransactionAllTypeQuery {
             return response;
         }
 
+        //转换参数
+        CatDTO catDTO = covert(request);
+
         //发送请求
         Document document= null;
         try {
             document = HttpProxyUtil.sendHttp(SystemConstant.TRANSACTION_URI,
-                    JsonUtil.toMap(request), null);
+                    JsonUtil.toMap(catDTO), null);
         } catch (IOException e) {
             log.error("Query transaction all type error! param: {} e :{}", JsonUtil.toJson(request), e);
         }
@@ -58,6 +64,20 @@ public class TransactionAllTypeQueryImp implements ITransactionAllTypeQuery {
         }
 
         return null;
+    }
+
+    private CatDTO covert(TransactionAllTypeRequest request) {
+        CatDTO catDTO = new CatDTO();
+        catDTO.setDomain(request.getDomain());
+        catDTO.setIp(request.getIp());
+        catDTO.setReportType(request.getReportType());
+        catDTO.setOp(CatConstant.OP_VIEW);
+        catDTO.setDate(DateUtil.nowYYYYMMDDHH());
+
+        if (Objects.nonNull(request.getStep())) {
+            catDTO.setStep(request.getStep() + "");
+        }
+        return catDTO;
     }
 
 }

@@ -1,4 +1,4 @@
-package org.xupt.cat.proxy.api.domain.requests.transaction;
+package org.xupt.cat.proxy.api.domain.requests.event;
 
 import lombok.Data;
 import org.xupt.cat.proxy.api.domain.requests.BaseRequest;
@@ -7,15 +7,11 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author lining
- * @data 2020-04-07 下午12:33
+ * @data 2020-04-08 下午2:03
  */
 @Data
-public class TransactionNameInfoRequest extends BaseRequest {
+public class EventTypeInfoRequest extends BaseRequest {
 
     @NotBlank
     private String type;
-
-    @NotBlank
-    private String name;
-
 }
