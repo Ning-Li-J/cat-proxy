@@ -14,11 +14,7 @@ import java.util.List;
 @Data
 public class EventInfoResponse {
 
-    //命中数量
-    private TargetInfo hitsNum;
-
-    //命中失败的数量
-    private TargetInfo failuresNum;
+    private List<TargetInfo> targetInfoList;
 
     private List<BranchInfo> branchInfoList;
 

@@ -12,15 +12,14 @@ import java.util.Objects;
 @Slf4j
 public class SystemConstant {
 
+    // cat-proxy端口
     public static Integer PORT = 7000;
 
+    // cat-proxy上下文
     public static String CONTEXT_PATH = "/cat-proxy";
 
+    // cat地址
     public static String CAT_IP_PORT = "http://localhost:8080/cat";
-
-    public static final String TRANSACTION_URI = "/r/t";
-
-    public static final String EVENT_URI = "/r/e";
 
     private static final String PORT_NAME = "appPort";
     private static final String CONTEXT_PATH_NAME = "appContext";

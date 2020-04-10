@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class EventResponse {
 
-    private List<Event> events;
+    private List<Event> eventList;
 
     @Data
     public static class Event {

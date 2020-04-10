@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xupt.cat.proxy.api.constant.CatConstant;
 import org.xupt.cat.proxy.api.domain.responses.TargetInfo;
 import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionInfoResponse;
 import org.xupt.cat.proxy.api.domain.responses.transaction.TransactionResponse;
@@ -46,24 +45,24 @@ public class TransactionCoreImp implements ITransactionCore {
                 }
                 type = trElements.get(0).childNode(2).toString();
             } else {
-                type = trElements.get(0).getElementsByTag("a").get(1).childNode(0).toString();
+                type = trElements.get(0).getElementsByTag("a").get(1).text();
             }
 
             transaction.setName(type);
-            transaction.setTotal(trElements.get(1).childNode(0).toString());
-            transaction.setFailure(trElements.get(2).childNode(0).toString());
-            transaction.setMin(trElements.get(5).childNode(0).toString());
-            transaction.setMax(trElements.get(6).childNode(0).toString());
-            transaction.setAvg(trElements.get(7).childNode(0).toString());
-            transaction.setLine95(trElements.get(8).childNode(0).toString());
-            transaction.setLine999(trElements.get(9).childNode(0).toString());
-            transaction.setStd(trElements.get(10).childNode(0).toString());
-            transaction.setQps(trElements.get(11).childNode(0).toString());
+            transaction.setTotal(trElements.get(1).text());
+            transaction.setFailure(trElements.get(2).text());
+            transaction.setMin(trElements.get(5).text());
+            transaction.setMax(trElements.get(6).text());
+            transaction.setAvg(trElements.get(7).text());
+            transaction.setLine95(trElements.get(8).text());
+            transaction.setLine999(trElements.get(9).text());
+            transaction.setStd(trElements.get(10).text());
+            transaction.setQps(trElements.get(11).text());
             transactions.add(transaction);
         }
 
         TransactionResponse transactionResponse = new TransactionResponse();
-        transactionResponse.setTransactions(transactions);
+        transactionResponse.setTransactionList(transactions);
 
         log.info("end cover transaction .");
         return transactionResponse;
@@ -73,7 +72,35 @@ public class TransactionCoreImp implements ITransactionCore {
     public TransactionInfoResponse coverTransactionInfo(Document document) {
         log.info("start cover transaction info.");
 
+        List<TargetInfo> targetInfoList = core.parseTargetList(document);
+
+        //解析 分布统计
+        List<TransactionInfoResponse.BranchInfo> branchInfoList = new ArrayList<>();
+        Elements branchElement = document.getElementsByClass(" right");
+        for (Element element : branchElement) {
+            Elements branchIndoElements = element.getElementsByTag("td");
+
+            TransactionInfoResponse.BranchInfo branchInfo = new TransactionInfoResponse.BranchInfo();
+            branchInfo.setIp(branchIndoElements.get(0).text());
+            branchInfo.setTotal(branchIndoElements.get(1).text());
+            branchInfo.setFailure(branchIndoElements.get(2).text());
+            branchInfo.setMin(branchIndoElements.get(4).text());
+            branchInfo.setMax(branchIndoElements.get(5).text());
+            branchInfo.setAvg(branchIndoElements.get(6).text());
+            branchInfo.setStd(branchIndoElements.get(7).text());
+            branchInfoList.add(branchInfo);
+        }
+
         TransactionInfoResponse infoResponse = new TransactionInfoResponse();
+        infoResponse.setBranchInfoList(branchInfoList);
+        infoResponse.setTargetInfoList(targetInfoList);
+
+        log.info("end cover transaction info.");
+        return infoResponse;
+    }
+
+}
+/*
 
         Element[] yIndexElements = new Element[4];
         Element[] dataElements = new Element[4];
@@ -91,52 +118,43 @@ public class TransactionCoreImp implements ITransactionCore {
 
         //解析 持续时间分布
         TargetInfo durationDistribution = new TargetInfo();
-        durationDistribution.setXIndex(CatConstant.MILL_ARRAY);
+        durationDistribution.setTitle(TargetConstant.TITLE_DISTRIBUTION);
+        durationDistribution.setXUnits(TargetConstant.UNITS_MILL);
+        durationDistribution.setXIndex(TargetConstant.INDEX_MILL);
+        durationDistribution.setYUnits(TargetConstant.UNITS_COUNT);
         durationDistribution.setYIndex(core.parseYt(yIndexElements[0]));
         durationDistribution.setData(core.parseData(dataElements[0]));
         infoResponse.setDurationDistribution(durationDistribution);
 
         //解析 命中数量
         TargetInfo hitsNum = new TargetInfo();
-        hitsNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        hitsNum.setTitle(TargetConstant.TITLE_HITS_TIME);
+        hitsNum.setXUnits(TargetConstant.UNITS_MINUTE);
+        hitsNum.setXIndex(TargetConstant.INDEX_MINUTE);
+        hitsNum.setYUnits(TargetConstant.UNITS_COUNT);
         hitsNum.setYIndex(core.parseYt(yIndexElements[1]));
         hitsNum.setData(core.parseData(dataElements[1]));
         infoResponse.setHitsNum(hitsNum);
 
         //解析 平均持续时间
         TargetInfo averageDurationTime = new TargetInfo();
-        averageDurationTime.setXIndex(CatConstant.MINUTE_ARRAY);
+        averageDurationTime.setTitle(TargetConstant.TITLE_AVERAGE);
+        averageDurationTime.setXUnits(TargetConstant.UNITS_MINUTE);
+        averageDurationTime.setXIndex(TargetConstant.INDEX_MINUTE);
+        averageDurationTime.setYUnits(TargetConstant.UNITS_MILL);
         averageDurationTime.setYIndex(core.parseYt(yIndexElements[2]));
         averageDurationTime.setData(core.parseData(dataElements[2]));
         infoResponse.setAverageDurationTime(averageDurationTime);
 
         //解析 失败数量
         TargetInfo failuresNum = new TargetInfo();
-        failuresNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        failuresNum.setTitle(TargetConstant.TITLE_FAILURES_TIME);
+        failuresNum.setXUnits(TargetConstant.UNITS_MINUTE);
+        failuresNum.setXIndex(TargetConstant.INDEX_MINUTE);
+        failuresNum.setYUnits(TargetConstant.UNITS_COUNT);
         failuresNum.setYIndex(core.parseYt(yIndexElements[3]));
         failuresNum.setData(core.parseData(dataElements[3]));
         infoResponse.setFailuresNum(failuresNum);
 
-        //解析 分布统计
-        List<TransactionInfoResponse.BranchInfo> branchInfoList = new ArrayList<>();
-        Elements branchElement = document.getElementsByClass(" right");
-        for (Element element : branchElement) {
-            Elements branchIndoElements = element.getElementsByTag("td");
 
-            TransactionInfoResponse.BranchInfo branchInfo = new TransactionInfoResponse.BranchInfo();
-            branchInfo.setIp(branchIndoElements.get(0).childNode(0).toString());
-            branchInfo.setTotal(branchIndoElements.get(1).childNode(0).toString());
-            branchInfo.setFailure(branchIndoElements.get(2).childNode(0).toString());
-            branchInfo.setMin(branchIndoElements.get(4).childNode(0).toString());
-            branchInfo.setMax(branchIndoElements.get(5).childNode(0).toString());
-            branchInfo.setAvg(branchIndoElements.get(6).childNode(0).toString());
-            branchInfo.setStd(branchIndoElements.get(7).childNode(0).toString());
-            branchInfoList.add(branchInfo);
-        }
-        infoResponse.setBranchInfoList(branchInfoList);
-
-        log.info("end cover transaction info.");
-        return infoResponse;
-    }
-
-}
+ */

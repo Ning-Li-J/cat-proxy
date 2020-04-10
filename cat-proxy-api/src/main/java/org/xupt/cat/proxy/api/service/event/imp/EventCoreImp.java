@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xupt.cat.proxy.api.constant.CatConstant;
+import org.xupt.cat.proxy.api.constant.TargetConstant;
 import org.xupt.cat.proxy.api.domain.responses.TargetInfo;
 import org.xupt.cat.proxy.api.domain.responses.event.EventInfoResponse;
 import org.xupt.cat.proxy.api.domain.responses.event.EventResponse;
@@ -60,7 +61,7 @@ public class EventCoreImp implements IEventCore {
         }
 
         EventResponse response = new EventResponse();
-        response.setEvents(eventList);
+        response.setEventList(eventList);
 
         log.info("end covert event.");
         return response;
@@ -70,7 +71,43 @@ public class EventCoreImp implements IEventCore {
     public EventInfoResponse covertEventInfo(Document document) {
         log.info("start covert event info.");
 
+        List<TargetInfo> targetInfoList = core.parseTargetList(document);
+
+        List<EventInfoResponse.BranchInfo> branchInfoList = new ArrayList<>();
+        Elements branchElements = document.getElementsByClass(" right");
+        for (Element element : branchElements) {
+            Elements branchIndoElements = element.getElementsByTag("td");
+
+            EventInfoResponse.BranchInfo branchInfo = new EventInfoResponse.BranchInfo();
+            branchInfo.setIp(branchIndoElements.get(0).childNode(0).toString());
+            branchInfo.setTotal(branchIndoElements.get(1).childNode(0).toString());
+            branchInfo.setFailure(branchIndoElements.get(2).childNode(0).toString());
+            branchInfoList.add(branchInfo);
+        }
+
         EventInfoResponse eventInfoResponse = new EventInfoResponse();
+        eventInfoResponse.setTargetInfoList(targetInfoList);
+        eventInfoResponse.setBranchInfoList(branchInfoList);
+
+        log.info("end covert event info.");
+        return eventInfoResponse;
+    }
+
+    /*
+    private String[] parseYt(Element element) {
+        Elements elements = element.getElementsByTag("text");
+        List<String> list = new ArrayList<>();
+        for (Element e : elements) {
+            list.add(e.childNode(0).toString().trim());
+        }
+
+        String[] rest = new String[list.size()];
+        return list.toArray(rest);
+    }
+    */
+}
+
+/*
 
         Element[] dataElements = new Element[2];
         Element[] yIndexElements = new Element[2];
@@ -87,42 +124,20 @@ public class EventCoreImp implements IEventCore {
         }
 
         TargetInfo hitsNum = new TargetInfo();
-        hitsNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        hitsNum.setTitle(TargetConstant.TITLE_HITS_TIME);
+        hitsNum.setXUnits(TargetConstant.UNITS_MINUTE);
+        hitsNum.setXIndex(TargetConstant.INDEX_MINUTE);
+        hitsNum.setYUnits(TargetConstant.UNITS_COUNT);
         hitsNum.setYIndex(core.parseYt(yIndexElements[0]));
         hitsNum.setData(core.parseData(dataElements[0]));
         eventInfoResponse.setHitsNum(hitsNum);
 
         TargetInfo failuresNum = new TargetInfo();
-        failuresNum.setXIndex(CatConstant.MINUTE_ARRAY);
+        failuresNum.setTitle(TargetConstant.TITLE_FAILURES_TIME);
+        failuresNum.setXUnits(TargetConstant.UNITS_MINUTE);
+        failuresNum.setXIndex(TargetConstant.INDEX_MINUTE);
+        failuresNum.setYUnits(TargetConstant.UNITS_COUNT);
         failuresNum.setYIndex(core.parseYt(yIndexElements[1]));
         failuresNum.setData(core.parseData(dataElements[1]));
         eventInfoResponse.setFailuresNum(failuresNum);
-
-        List<EventInfoResponse.BranchInfo> branchInfoList = new ArrayList<>();
-        Elements branchElements = document.getElementsByClass(" right");
-        for (Element element : branchElements) {
-            Elements branchIndoElements = element.getElementsByTag("td");
-
-            EventInfoResponse.BranchInfo branchInfo = new EventInfoResponse.BranchInfo();
-            branchInfo.setIp(branchIndoElements.get(0).childNode(0).toString());
-            branchInfo.setTotal(branchIndoElements.get(1).childNode(0).toString());
-            branchInfo.setFailure(branchIndoElements.get(2).childNode(0).toString());
-            branchInfoList.add(branchInfo);
-        }
-        eventInfoResponse.setBranchInfoList(branchInfoList);
-
-        log.info("end covert event info.");
-        return eventInfoResponse;
-    }
-
-    private String[] parseYt(Element element) {
-        Elements elements = element.getElementsByTag("text");
-        List<String> list = new ArrayList<>();
-        for (Element e : elements) {
-            list.add(e.childNode(0).toString().trim());
-        }
-
-        String[] rest = new String[list.size()];
-        return list.toArray(rest);
-    }
-}
+ */

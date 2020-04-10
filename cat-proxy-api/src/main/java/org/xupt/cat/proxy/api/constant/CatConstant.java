@@ -11,26 +11,10 @@ public class CatConstant {
 
     public static final String OP_GRAPHS = "graphs";
 
+    public static final String TRANSACTION_URI = "/r/t";
 
+    public static final String EVENT_URI = "/r/e";
 
-    public static final String[] MINUTE_ARRAY = { "0",  "1",  "2",  "3",  "4",
-                                            "5",  "6",  "7",  "8",  "9",
-                                            "10", "11", "12", "13", "14",
-                                            "15", "16", "17", "18", "19",
-                                            "20", "21", "22", "23", "24",
-                                            "25", "26", "27", "28", "29",
-                                            "30", "31", "32", "33", "34",
-                                            "35", "36", "37", "38", "39",
-                                            "40", "41", "42", "43", "44",
-                                            "45", "46", "47", "48", "49",
-                                            "50", "51", "52", "53", "54",
-                                            "55", "56", "57", "58", "59"
-                                            };
+    public static final String HEART_URI = "/r/h";
 
-
-    public static final String[] MILL_ARRAY = { "0",     "1",     "2",      "4",      "8",
-                                          "16",    "32",    "64",     "128",    "256",
-                                          "512",   "1024",  "2048",   "4096",   "8192",
-                                          "16384", "32768", "65536"
-                                         };
 }

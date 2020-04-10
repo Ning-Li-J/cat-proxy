@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 public class TransactionResponse {
-    private List<Transaction> transactions;
+    private List<Transaction> transactionList;
 
     @Data
     public static class Transaction{

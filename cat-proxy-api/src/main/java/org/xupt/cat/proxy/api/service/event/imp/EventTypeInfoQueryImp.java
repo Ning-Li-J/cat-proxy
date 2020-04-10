@@ -40,7 +40,7 @@ public class EventTypeInfoQueryImp implements IEventTypeInfoQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(SystemConstant.EVENT_URI,
+            document = HttpProxyUtil.sendHttp(CatConstant.EVENT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("query event type info error.", e);

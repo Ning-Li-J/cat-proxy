@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xupt.cat.proxy.api.constant.CatConstant;
 import org.xupt.cat.proxy.api.constant.SystemConstant;
 import org.xupt.cat.proxy.api.domain.dto.CatDTO;
 import org.xupt.cat.proxy.api.domain.requests.event.EventAllNameRequest;
@@ -39,7 +40,7 @@ public class EventAllNameQueryImp implements IEventAllNameQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(SystemConstant.EVENT_URI,
+            document = HttpProxyUtil.sendHttp(CatConstant.EVENT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("query event all name error!", e);

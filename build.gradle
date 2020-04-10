@@ -9,8 +9,6 @@ buildscript {
     repositories {
         maven { url "https://repo1.maven.org/maven2/" }
         maven { url "http://unidal.org/nexus/content/repositories/releases/"}
-        //http://unidal.org/nexus/content/repositories/releases/com/dianping/cat/cat-client/3.0.0/cat-client-3.0.0.jar
-
     }
 
     dependencies {
@@ -32,15 +30,18 @@ ext {
     lombokVersion = '1.18.8'
     catClientVersion = "3.0.0"
     jsoupVersion = "1.12.1"
-
 }
 
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'scala'
+    apply plugin: 'application'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    mainClassName="org.xupt.cat.proxy.api.CatProxyApiApplication"
 
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 }
@@ -91,6 +92,16 @@ subprojects {
 
 project(":cat-proxy-api") {
     jar.archiveName = "cat-proxy-api.jar"
+    jar {
+        manifestContentCharset 'utf-8'
+        metadataCharset 'utf-8'
+        manifest {
+            attributes "Main-Class": "org.xupt.cat.proxy.api.CatProxyApiApplication"
+        }
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
 
     dependencies {
 

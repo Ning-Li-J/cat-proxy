@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xupt.cat.proxy.api.constant.SystemConstant;
+import org.xupt.cat.proxy.api.constant.CatConstant;
 import org.xupt.cat.proxy.api.domain.dto.CatDTO;
 import org.xupt.cat.proxy.api.domain.requests.transaction.TransactionAllNameRequest;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
@@ -44,7 +44,7 @@ public class TransactionAllNameQueryImp implements ITransactionAllNameQuery {
         //发送请求
         Document document= null;
         try {
-            document = HttpProxyUtil.sendHttp(SystemConstant.TRANSACTION_URI,
+            document = HttpProxyUtil.sendHttp(CatConstant.TRANSACTION_URI,
                     JsonUtil.toMap(catDTO), null);
         } catch (IOException e) {
             log.error("Query transaction all name error! param: {} e :{}", JsonUtil.toJson(request), e);

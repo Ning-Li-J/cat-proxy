@@ -7,9 +7,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.xupt.cat.proxy.api.utils.DateUtil;
+import org.xupt.cat.proxy.api.domain.responses.TargetInfo;
+import org.xupt.cat.proxy.api.service.ICore;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -21,14 +23,17 @@ import java.util.*;
         CatProxyApiApplication.class
 })
 public class CatProxyApiApplicationTests {
-//    @Test
+
+    @Autowired
+    private ICore core;
+    @Test
     public void test() throws IOException {
         //String url = "http://localhost:8080/cat/r/t?domain=cat&ip=All&type=URL";
 
         LocalDateTime dateTime = LocalDateTime.now();
         int hour = dateTime.getHour();
         String value = new DecimalFormat("00").format(hour);
-        String url = "http://localhost:8080/cat/r/e?domain=cat&date=2020040813&ip=All&type=ReloadLocal";
+        String url = "http://localhost:8080/cat/r/h?domain=&ip=All&date=2020041016&reportType=day&op=view";
         String param = "";
         Map cookies = new HashMap();
         //cookies.put("CAT_DOMAINS", "cat|thoughtcoding-api");
@@ -45,20 +50,23 @@ public class CatProxyApiApplicationTests {
         Connection.Response response = connection.execute();
         Document document = Jsoup.parse(response.body());
 
-        Elements elements = document.getElementsByClass(" right");
-        boolean isFirst = true;
-        for (Element e : elements) {
-            if (isFirst) {
-                isFirst = false;
-                continue;
+        Elements groupElements = document.getElementById("heartGroup").getElementsByTag("tr");
+        for (int i = 0; i < groupElements.size(); i += 2) {
+
+            Element groupNameElement = groupElements.get(i).getElementById("groupTitle");
+            System.out.println(groupNameElement.text());
+
+
+            List<TargetInfo> targetInfoList = core.parseTargetList(groupElements.get(i + 1));
+            for (TargetInfo targetInfo : targetInfoList) {
+                System.out.println();
+                System.out.println(targetInfo);
             }
-            Elements tdElements = e.getElementsByTag("td");
-            tdElements.get(0);
         }
+
     }
 
 
-    @Test
     public void tests() {
         String[] a = "=aa".split("=");
         System.out.println(Arrays.toString(a));

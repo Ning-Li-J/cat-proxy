@@ -41,7 +41,7 @@ public class EventNameInfoQueryImp implements IEventNameInfoQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(SystemConstant.EVENT_URI,
+            document = HttpProxyUtil.sendHttp(CatConstant.EVENT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("query event name info error!", e);

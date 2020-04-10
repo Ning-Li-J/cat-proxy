@@ -13,17 +13,7 @@ import java.util.List;
 @Data
 public class TransactionInfoResponse {
 
-    //持续时间布局
-    private TargetInfo durationDistribution;
-
-    //平均持续时间
-    private TargetInfo averageDurationTime;
-
-    //命中数量
-    private TargetInfo hitsNum;
-
-    //命中失败的数量
-    private TargetInfo failuresNum;
+    private List<TargetInfo> targetInfoList;
 
     private List<BranchInfo> branchInfoList;
 
