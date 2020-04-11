@@ -26,7 +26,7 @@ public class CatProxyApiApplicationTests {
 
     @Autowired
     private ICore core;
-    @Test
+    //@Test
     public void test() throws IOException {
         //String url = "http://localhost:8080/cat/r/t?domain=cat&ip=All&type=URL";
 
@@ -66,7 +66,7 @@ public class CatProxyApiApplicationTests {
 
     }
 
-
+    @Test
     public void tests() {
         String[] a = "=aa".split("=");
         System.out.println(Arrays.toString(a));

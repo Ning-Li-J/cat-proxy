@@ -17,4 +17,6 @@ public class CatConstant {
 
     public static final String HEART_URI = "/r/h";
 
+    public static final String QUERY_PROJECT_URI = "/r/cross";
+
 }

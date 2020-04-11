@@ -3,6 +3,7 @@ package org.xupt.cat.proxy.api.domain.dto;
 import lombok.Data;
 
 /**
+ * 请求 CAT 参数
  * @author lining
  * @data 2020-04-08 上午10:00
  */

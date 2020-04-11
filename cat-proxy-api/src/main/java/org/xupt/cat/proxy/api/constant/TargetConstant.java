@@ -6,22 +6,6 @@ package org.xupt.cat.proxy.api.constant;
  */
 public class TargetConstant {
 
-    public static final String TITLE_DISTRIBUTION = "请求持续时间分布";
-
-    public static final String TITLE_HITS_TIME = "请求命中分布";
-
-    public static final String TITLE_AVERAGE = "请求平均持续时间";
-
-    public static final String TITLE_FAILURES_TIME = "失败请求分布";
-
-
-    public static final String UNITS_MINUTE = "分钟";
-
-    public static final String UNITS_MILL = "毫秒";
-
-    public static final String UNITS_COUNT = "个";
-
-
     public static final String[] INDEX_MINUTE = { "0",  "1",  "2",  "3",  "4",
             "5",  "6",  "7",  "8",  "9",
             "10", "11", "12", "13", "14",

@@ -7,22 +7,18 @@ buildscript {
     }
 
     repositories {
+        maven { url "https://maven.aliyun.com/repository/public"}
         maven { url "https://repo1.maven.org/maven2/" }
         maven { url "http://unidal.org/nexus/content/repositories/releases/"}
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
     }
 }
 
 ext {
     springBootVersion = "2.1.2.RELEASE"
-    druidVersion = "1.1.20"
-    pageHelperStartVersion = "1.2.12"
-    mysqlConnectorVersion = "8.0.13"
-    mybatisGenerator = "1.3.7"
-    mybatisStarterVersion = "1.3.2"
     jacksonJsonVersion = "2.10.1"
     javaxServletVersion = "4.0.1"
     commonsLang3Versin = "3.8.1"
@@ -35,15 +31,17 @@ ext {
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'scala'
+    apply plugin: 'base'
     apply plugin: 'application'
+    apply plugin: 'org.springframework.boot'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
     mainClassName="org.xupt.cat.proxy.api.CatProxyApiApplication"
 
-    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 }
 
 subprojects {
@@ -51,6 +49,7 @@ subprojects {
     group = parent.group
 
     repositories {
+        maven { url "https://maven.aliyun.com/repository/public"}
         maven { url "https://repo1.maven.org/maven2/" }
         maven { url "http://unidal.org/nexus/content/repositories/releases/"}
     }
@@ -92,23 +91,12 @@ subprojects {
 
 project(":cat-proxy-api") {
     jar.archiveName = "cat-proxy-api.jar"
-    jar {
-        manifestContentCharset 'utf-8'
-        metadataCharset 'utf-8'
-        manifest {
-            attributes "Main-Class": "org.xupt.cat.proxy.api.CatProxyApiApplication"
-        }
-        from {
-            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-        }
-    }
 
     dependencies {
 
         compile "javax.servlet:javax.servlet-api:$javaxServletVersion"
         compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
         compile "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
-
     }
 
 }
