@@ -41,7 +41,7 @@ public class EventController {
     @Autowired
     private IEventNameInfoQuery eventNameInfoQuery;
 
-    @RequestMapping(value = "/allType", method = RequestMethod.GET)
+    @RequestMapping(value = "/allType", method = RequestMethod.POST)
     public BaseResponse queryAllType(@Valid @RequestBody EventAllTypeRequest request) {
         log.info("query event all type. request :{}", JsonUtil.toJson(request));
         BaseResponse response = eventAllTypeQuery.queryAllType(request);
@@ -49,7 +49,7 @@ public class EventController {
         return response;
     }
 
-    @RequestMapping(value = "/typeInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/typeInfo", method = RequestMethod.POST)
     public BaseResponse queryType(@Valid @RequestBody EventTypeInfoRequest request) {
         log.info("query event type info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = eventTypeInfoQuery.queryTypeInfo(request);
@@ -57,7 +57,7 @@ public class EventController {
         return response;
     }
 
-    @RequestMapping(value = "/allName", method = RequestMethod.GET)
+    @RequestMapping(value = "/allName", method = RequestMethod.POST)
     public BaseResponse queryAllName(@Valid @RequestBody EventAllNameRequest request) {
         log.info("query event all name. request :{}", JsonUtil.toJson(request));
         BaseResponse response = eventAllNameQuery.queryAllName(request);
@@ -65,7 +65,7 @@ public class EventController {
         return response;
     }
 
-    @RequestMapping(value = "/nameInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/nameInfo", method = RequestMethod.POST)
     public BaseResponse queryName(@Valid @RequestBody EventNameInfoRequest request) {
         log.info("query event name info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = eventNameInfoQuery.queryNameInfo(request);

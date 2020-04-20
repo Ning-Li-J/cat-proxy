@@ -1,4 +1,4 @@
-package org.xupt.cat.proxy.api.domain.responses;
+package org.xupt.cat.proxy.api.domain;
 
 import lombok.Data;
 

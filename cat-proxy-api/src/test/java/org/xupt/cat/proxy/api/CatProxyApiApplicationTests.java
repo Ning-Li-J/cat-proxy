@@ -1,5 +1,7 @@
 package org.xupt.cat.proxy.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,67 +12,65 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.xupt.cat.proxy.api.domain.responses.TargetInfo;
+import org.springframework.util.StringUtils;
+import org.xupt.cat.proxy.api.constant.CatConstant;
+import org.xupt.cat.proxy.api.domain.AlertRule;
+import org.xupt.cat.proxy.api.domain.responses.alert.AlertRuleSimpResponse;
 import org.xupt.cat.proxy.api.service.ICore;
+import org.xupt.cat.proxy.api.utils.HttpProxyUtil;
+import org.xupt.cat.proxy.api.utils.JsonUtil;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         CatProxyApiApplication.class
 })
+@Slf4j
 public class CatProxyApiApplicationTests {
 
     @Autowired
     private ICore core;
-    //@Test
+    @Test
     public void test() throws IOException {
-        //String url = "http://localhost:8080/cat/r/t?domain=cat&ip=All&type=URL";
+        Map<String, String> param = new HashMap<>();
+        param.put("op", "eventRuleDelete");
+        param.put("ruleId", "cat;URL;URL.Server;count");
 
-        LocalDateTime dateTime = LocalDateTime.now();
-        int hour = dateTime.getHour();
-        String value = new DecimalFormat("00").format(hour);
-        String url = "http://localhost:8080/cat/r/h?domain=&ip=All&date=2020041016&reportType=day&op=view";
-        String param = "";
-        Map cookies = new HashMap();
-        //cookies.put("CAT_DOMAINS", "cat|thoughtcoding-api");
-        //cookies.put("JSESSIONID", "E5EB0B8FEEA0FC1265F8A36C192CFD26");
-        //cookies.put("_ga", "GA1.1.286861500.1569143707");
+        //String cookie = "ct=admin|admin|1587211029247|127.0.0.1|526355560";
+        String cookie = "ct=" + buildCookie();
 
-
-        Connection connection = Jsoup.connect(url);
-        connection.header("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        connection.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0");
-
-        connection.cookies(cookies);
-
-        Connection.Response response = connection.execute();
-        Document document = Jsoup.parse(response.body());
-
-        Elements groupElements = document.getElementById("heartGroup").getElementsByTag("tr");
-        for (int i = 0; i < groupElements.size(); i += 2) {
-
-            Element groupNameElement = groupElements.get(i).getElementById("groupTitle");
-            System.out.println(groupNameElement.text());
-
-
-            List<TargetInfo> targetInfoList = core.parseTargetList(groupElements.get(i + 1));
-            for (TargetInfo targetInfo : targetInfoList) {
-                System.out.println();
-                System.out.println(targetInfo);
-            }
+        Document document = null;
+        try {
+            document = HttpProxyUtil.sendGetHttp("/s/config", param, cookie);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        System.out.println(document);
     }
 
     @Test
-    public void tests() {
-        String[] a = "=aa".split("=");
-        System.out.println(Arrays.toString(a));
+    public void login() {
 
+        String input = "events";
+
+        String reg = "transaction|event";
+        System.out.println(Pattern.matches(reg, input));
     }
 
+
+    private String buildCookie() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("admin|");
+        sb.append("admin|");
+        sb.append(System.currentTimeMillis() + "|");
+        sb.append("127.0.0.1" + "|");
+        Integer code = sb.toString().hashCode();
+        sb.append(code);
+        return sb.toString();
+    }
 }

@@ -44,7 +44,7 @@ public class HeartQueryImp implements IHeartQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.HEART_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.HEART_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("Query host heart error! param: {} e :{}", JsonUtil.toJson(request), e);

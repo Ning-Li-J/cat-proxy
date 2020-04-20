@@ -37,7 +37,7 @@ public class TransactionController {
     @Autowired
     private ITransactionNameInfoQuery transactionNameInfoQuery;
 
-    @RequestMapping(value = "/allType", method = RequestMethod.GET)
+    @RequestMapping(value = "/allType", method = RequestMethod.POST)
     public BaseResponse queryAllType(@Valid @RequestBody TransactionAllTypeRequest request) {
         log.info("query transaction all type. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionAllTypeQuery.queryAllType(request);
@@ -45,7 +45,7 @@ public class TransactionController {
         return response;
     }
 
-    @RequestMapping(value = "/typeInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/typeInfo", method = RequestMethod.POST)
     public BaseResponse queryType(@Valid @RequestBody TransactionTypeInfoRequest request) {
         log.info("query transaction type info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionTypeInfoQuery.queryTypeInfo(request);
@@ -53,7 +53,7 @@ public class TransactionController {
         return response;
     }
 
-    @RequestMapping(value = "/allName", method = RequestMethod.GET)
+    @RequestMapping(value = "/allName", method = RequestMethod.POST)
     public BaseResponse queryAllName(@Valid @RequestBody TransactionAllNameRequest request) {
         log.info("query transaction all name. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionAllNameQuery.queryAllName(request);
@@ -61,7 +61,7 @@ public class TransactionController {
         return response;
     }
 
-    @RequestMapping(value = "/nameInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/nameInfo", method = RequestMethod.POST)
     public BaseResponse queryName(@Valid @RequestBody TransactionNameInfoRequest request) {
         log.info("query transaction name info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = transactionNameInfoQuery.queryNameInfo(request);

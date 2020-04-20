@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.xupt.cat.proxy.api.constant.CatConstant;
-import org.xupt.cat.proxy.api.domain.responses.Project;
+import org.xupt.cat.proxy.api.domain.Project;
 import org.xupt.cat.proxy.api.domain.dto.CatDTO;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.domain.responses.project.ProjectResponse;
@@ -34,7 +34,7 @@ public class ProjectQueryImp implements IProjectQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.QUERY_PROJECT_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.QUERY_PROJECT_URI,
                     JsonUtil.toMap(covert()), null);
         } catch (Exception e) {
             log.error("Query all project all error! e :{}",  e);

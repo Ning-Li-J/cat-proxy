@@ -25,7 +25,7 @@ public class HostController {
     @Autowired
     private IHostIpQuery hostIpQuery;
 
-    @RequestMapping(value = "/ip", method = RequestMethod.GET)
+    @RequestMapping(value = "/ip", method = RequestMethod.POST)
     public BaseResponse queryHostIp(@Valid @RequestBody HostIpRequest hostIpRequest) {
         log.info("query host ip. request :{}", JsonUtil.toJson(hostIpRequest));
         BaseResponse response = hostIpQuery.queryHostIp(hostIpRequest);

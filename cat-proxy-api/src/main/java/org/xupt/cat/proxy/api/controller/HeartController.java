@@ -26,7 +26,7 @@ public class HeartController {
     @Autowired
     private IHeartQuery heartQuery;
 
-    @RequestMapping(value = "/hostHeart", method = RequestMethod.GET)
+    @RequestMapping(value = "/hostHeart", method = RequestMethod.POST)
     public BaseResponse queryHostHeart(@Valid @RequestBody HeartRequest request) {
         log.info("query host info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = heartQuery.queryHostHeart(request);

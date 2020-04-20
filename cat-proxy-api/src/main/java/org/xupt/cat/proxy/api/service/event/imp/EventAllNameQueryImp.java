@@ -40,7 +40,7 @@ public class EventAllNameQueryImp implements IEventAllNameQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.EVENT_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.EVENT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("query event all name error!", e);

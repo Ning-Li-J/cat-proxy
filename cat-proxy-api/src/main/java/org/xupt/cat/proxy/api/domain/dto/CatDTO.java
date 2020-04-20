@@ -25,4 +25,9 @@ public class CatDTO {
 
     private String name;
 
+    private String ruleId;
+
+    private Boolean available;
+
+    private String configs;
 }

@@ -21,11 +21,12 @@ public class ProjectController {
     @Autowired
     private IProjectQuery projectQuery;
 
-    @RequestMapping(value = "/allDomain", method = RequestMethod.GET)
+    @RequestMapping(value = "/allDomain", method = RequestMethod.POST)
     public BaseResponse queryAllProject() {
         log.info("query all project.");
         BaseResponse response = projectQuery.queryAllProject();
         log.info("query all project. response :{}", JsonUtil.toJson(response));
         return response;
     }
+
 }

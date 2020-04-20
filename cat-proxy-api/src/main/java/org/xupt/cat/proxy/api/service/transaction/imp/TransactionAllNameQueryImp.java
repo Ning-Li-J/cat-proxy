@@ -44,7 +44,7 @@ public class TransactionAllNameQueryImp implements ITransactionAllNameQuery {
         //发送请求
         Document document= null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.TRANSACTION_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.TRANSACTION_URI,
                     JsonUtil.toMap(catDTO), null);
         } catch (IOException e) {
             log.error("Query transaction all name error! param: {} e :{}", JsonUtil.toJson(request), e);

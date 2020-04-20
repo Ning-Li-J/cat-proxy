@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.enums.ErrorCode;
+import org.xupt.cat.proxy.api.exception.NonLoginException;
 import org.xupt.cat.proxy.api.utils.ResponseUtil;
 
 /**
@@ -19,13 +20,18 @@ import org.xupt.cat.proxy.api.utils.ResponseUtil;
 @ControllerAdvice
 public class ApiControllerAdvice {
 
+    @ExceptionHandler(NonLoginException.class)
+    @ResponseBody
+    public BaseResponse handleAuchException(NonLoginException e) {
+        log.info("auch check error, no logging !", e);
+        return ResponseUtil.buildFailResponce(ErrorCode.NO_LOGIN);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public BaseResponse handleParamException(MethodArgumentNotValidException e) {
-        log.error("request param error! ", e);
+        log.info("request param error! ", e);
         return ResponseUtil.buildFailResponce(ErrorCode.REQUEST_PARAM_ERROR);
-
     }
 
     @ExceptionHandler(RuntimeException.class)

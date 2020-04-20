@@ -34,7 +34,7 @@ public class HostIpQueryImp implements IHostIpQuery {
 
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.QUERY_PROJECT_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.QUERY_PROJECT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.info("Query host ip error! e :{}",  e);

@@ -42,7 +42,7 @@ public class TransactionNameInfoQueryImp implements ITransactionNameInfoQuery {
         //发送请求
         Document document = null;
         try {
-            document = HttpProxyUtil.sendHttp(CatConstant.TRANSACTION_URI,
+            document = HttpProxyUtil.sendGetHttp(CatConstant.TRANSACTION_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
             log.error("Query transaction name info error! param: {} e :{}", JsonUtil.toJson(request), e);

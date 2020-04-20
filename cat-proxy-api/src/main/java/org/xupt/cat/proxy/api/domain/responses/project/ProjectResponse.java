@@ -1,7 +1,7 @@
 package org.xupt.cat.proxy.api.domain.responses.project;
 
 import lombok.Data;
-import org.xupt.cat.proxy.api.domain.responses.Project;
+import org.xupt.cat.proxy.api.domain.Project;
 
 import java.util.List;
 
