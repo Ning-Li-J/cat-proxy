@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
 import org.xupt.cat.proxy.api.constant.CatConstant;
 import org.xupt.cat.proxy.api.domain.AlertRule;
+import org.xupt.cat.proxy.api.domain.Condition;
 import org.xupt.cat.proxy.api.domain.responses.alert.AlertRuleSimpResponse;
 import org.xupt.cat.proxy.api.service.ICore;
 import org.xupt.cat.proxy.api.utils.HttpProxyUtil;
@@ -34,7 +35,7 @@ public class CatProxyApiApplicationTests {
 
     @Autowired
     private ICore core;
-    @Test
+    //@Test
     public void test() throws IOException {
         Map<String, String> param = new HashMap<>();
         param.put("op", "eventRuleDelete");
@@ -55,13 +56,21 @@ public class CatProxyApiApplicationTests {
 
     @Test
     public void login() {
+        String data = "[{\"starttime\":\"00:00\",\"endtime\":\"24:00\",\"conditions\":[{\"minute\":2,\"alertType\":\"warning\",\"sub-conditions\":[{\"type\":\"MinVal\",\"text\":\"100\"},{\"type\":\"MinVal\",\"text\":\"100\"}]},{\"minute\":2,\"alertType\":\"warning\",\"sub-conditions\":[{\"type\":\"MaxVal\",\"text\":\"20\"}]}]},{\"starttime\":\"00:00\",\"endtime\":\"24:00\",\"conditions\":[{\"minute\":3,\"alertType\":\"error\",\"sub-conditions\":[{\"type\":\"MaxVal\",\"text\":\"100\"}]}]}]";
 
-        String input = "events";
+        System.out.println();
+        System.out.println(data.replaceAll("sub-conditions", "subConditions"));
 
-        String reg = "transaction|event";
-        System.out.println(Pattern.matches(reg, input));
+
     }
 
+    private static class Text{
+        private List<Condition.SubCondition> subConditions;
+    }
+
+    public static class MyTe{
+        private String name;
+    }
 
     private String buildCookie() {
         StringBuilder sb = new StringBuilder();

@@ -17,21 +17,4 @@ public class AlertRule {
 
     private List<Condition> conditions;
 
-    @Data
-    public static class Condition {
-
-        private List<SubCondition> subConditions;
-
-        private Integer minute;
-
-        private String alertType;
-    }
-
-    @Data
-    public static class SubCondition {
-        private String type;
-
-        private String text;
-    }
-
 }

@@ -12,7 +12,8 @@ public enum ErrorCode implements BaseEnum {
     CAT_RESPONSE_EMPTY(500002, "Cat response error!"),
     USER_NO_EXIST(500003, "uid not exist"),
     PWD_ERROR(500004, "wrong pwd"),
-    NO_LOGIN(500005, "not log in, please log in!");
+    NO_LOGIN(500005, "not log in, please log in!"),
+    LOGOUT_ERROR(500006, "登出失败");
 
 
     private int code;

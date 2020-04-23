@@ -57,6 +57,7 @@ public class AlertCoreImp implements IAlertCore {
     @Override
     public AlertRuleResponse covertRule(Document document) {
         log.info("start covert rule ......");
+        AlertRuleResponse response = new AlertRuleResponse();
 
         Matcher matcher= RULE_PATTERN.matcher(document.toString());
         String json = null;
@@ -65,11 +66,13 @@ public class AlertCoreImp implements IAlertCore {
         }
         if (StringUtils.isEmpty(json)) {
             log.error("covert rule info, but document not have config");
+            return response;
+
         }
-        json = json.replaceAll("-", "_");
+
+        json = json.replaceAll("sub-conditions", "subConditions");
         List<AlertRule> alertRuleList = JsonUtil.fromJson(json, new TypeReference<List<AlertRule>>() {});
 
-        AlertRuleResponse response = new AlertRuleResponse();
         response.setAlertRuleList(alertRuleList);
         return response;
     }

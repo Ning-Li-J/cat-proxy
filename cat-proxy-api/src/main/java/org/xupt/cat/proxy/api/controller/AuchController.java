@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * @author lining
  * @data 2020-04-18 下午6:51
  */
-@RequestMapping("/auch")
+@RequestMapping("/auth")
 @RestController
 @Slf4j
 public class AuchController {
@@ -37,4 +37,13 @@ public class AuchController {
         log.info("/api/auth login, response :{}", JsonUtil.toJson(response));
         return response;
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public BaseResponse logout() {
+        log.info("/api/auth logout.");
+        BaseResponse response = loginCommand.logout();
+        log.info("/api/auth logout, response :{}", JsonUtil.toJson(response));
+        return response;
+    }
+
 }

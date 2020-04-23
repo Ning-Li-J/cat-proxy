@@ -11,8 +11,8 @@ import org.xupt.cat.proxy.api.service.auch.ILoginCommand;
 import org.xupt.cat.proxy.api.utils.HttpSessionUtil;
 import org.xupt.cat.proxy.api.utils.ResponseUtil;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
-import java.util.regex.Matcher;
 
 /**
  * @author lining
@@ -29,6 +29,18 @@ public class LoginCommandImp implements ILoginCommand {
         }
 
         HttpSessionUtil.setSessionId(System.currentTimeMillis() + "");
+        return ResponseUtil.buildSuccessResponce();
+    }
+
+    @Override
+    public BaseResponse logout() {
+
+        try {
+            HttpSessionUtil.invalidate();
+        } catch (Exception e) {
+            log.info("logout error. e :{}", e);
+            return ResponseUtil.buildFailResponce(ErrorCode.LOGOUT_ERROR);
+        }
         return ResponseUtil.buildSuccessResponce();
     }
 

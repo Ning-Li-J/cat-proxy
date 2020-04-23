@@ -1,6 +1,7 @@
 package org.xupt.cat.proxy.api.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.server.Session;
 import org.xupt.cat.proxy.api.constant.HttpSessionConstant;
 import org.xupt.cat.proxy.api.exception.NonLoginException;
 
@@ -29,8 +30,13 @@ public class HttpSessionUtil {
         setValue(HttpSessionConstant.JSESSIONID, sessionId);
     }
 
-    public static void clearSession() {
-        //local.get().getAttributeNames()
+    public static void invalidate() {
+        HttpSession session = local.get();
+        if (Objects.isNull(session)) {
+            return;
+        }
+
+        session.invalidate();
     }
 
     private static Object getValue(String key) {

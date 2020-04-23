@@ -93,12 +93,12 @@ http://106.13.67.118:7000/cat-proxy
 | 3.9  | /heart/hostHeart      | 查询Host Heart具体的值       |
 | 3.10 | /host/ip              | 查询部署的机器IP             |
 | 3.11 | /project/allDomain    | 查询所有项目名称             |
-| 3.12 |                       |                              |
-| 3.13 |                       |                              |
-|      |                       |                              |
-|      |                       |                              |
-|      |                       |                              |
-|      |                       |                              |
+| 3.12 | /auth/login           | 登录                         |
+| 3.13 | /auth/logout          | 登出                         |
+| 3.14 | /alert/simpRule       | 查询告警规则列表             |
+| 3.15 | /alert/ruleInfo       | 查询告警规则详情             |
+| 3.16 | /alert/delete         | 删除告警规则                 |
+| 3.17 | /alert/create         | 创建告警股则                 |
 |      |                       |                              |
 
 
@@ -115,7 +115,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 + URL：/transaction/allType
-+ Method：GET
++ Method：POST
 
 #### (3)、请求参数
 
@@ -215,7 +215,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/transaction/allName
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -289,7 +289,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/transaction/typeInfo
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -416,7 +416,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/transaction/nameInfo
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -471,7 +471,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/event/allType
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -550,7 +550,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/event/allName
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -633,7 +633,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/event/typeInfo
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -751,7 +751,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/event/nameInfo
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -872,7 +872,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/heart/hostHeart
-- Method：GET
+- Method：POST
 
 #### (3)、请求参数
 
@@ -987,7 +987,7 @@ http://106.13.67.118:7000/cat-proxy
 #### (2)、接口
 
 - URL：/host/ip
-- Method：GET
+- Method：LOGIN
 
 #### (3)、请求参数
 
@@ -1042,8 +1042,8 @@ http://106.13.67.118:7000/cat-proxy
 
 #### (2)、接口
 
-- URL：/host/ip
-- Method：GET
+- URL：/project/allDomain
+- Method：POST
 
 #### (3)、请求参数
 
@@ -1098,3 +1098,423 @@ http://106.13.67.118:7000/cat-proxy
 }
 ```
 
+### 3.12、登录
+
+#### (1)、说明
+
+- 用户登录
+
+#### (2)、接口
+
+- URL：/auth/login
+- Method：POST
+
+#### (3)、请求参数
+
+| 参数 | 类型   | 非空 | 取值 | 备注      |
+| ---- | ------ | ---- | ---- | --------- |
+| uid  | String | 是   |      | 例：root  |
+| pwd  | String | 是   |      | 例: admin |
+
+#### (4)、响应参数
+
+- 通用响应
+
+#### (5)、示例
+
+- 请求
+
+```
+{
+	"uid": "root",
+	"pwd": "admin"
+}
+```
+
+- 响应
+
+```
+//成功
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": null
+}
+
+//失败
+{
+    "success": false,
+    "errorCode": 500003,
+    "errorMsg": "uid not exist",
+    "result": null
+}
+```
+
+### 3.13、登出
+
+#### (1)、说明
+
+- 用户退出登录
+
+#### (2)、接口
+
+- URL：/auth/logout
+- Method：POST
+
+#### (3)、请求参数
+
++ 无
+
+#### (4)、响应参数
+
+- 通用响应
+
+#### (5)、示例
+
+- 请求
+
+```
+// http://localhost:7000/cat-proxy/auth/logout
+```
+
+- 响应
+
+```
+//成功
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": null
+}
+```
+
+### 3.14、查询告警规则列表
+
+#### (1)、说明
+
+- 查询配置的告警规则列表
+
+#### (2)、接口
+
+- URL：/alert/simpRule
+- Method：POST
+
+#### (3)、请求参数
+
+| 参数      | 类型   | 非空 | 取值                  | 备注                                     |
+| --------- | ------ | ---- | --------------------- | ---------------------------------------- |
+| operation | String | 是   | transaction <br>event | 告警规则列表的类型<br>transaction或event |
+
+#### (4)、响应参数
+
+| 参数             | 类型            | 取值 | 备注         |
+| ---------------- | --------------- | ---- | ------------ |
+| ruleSimpInfoList | RuleSimpInfo[ ] |      | 告警规则列表 |
+
+- RuleSimpInfo
+
+| 参数    | 类型   | 取值 | 备注                       |
+| ------- | ------ | ---- | -------------------------- |
+| domain  | String |      | 项目名字                   |
+| type    | String |      | transaction或event的type名 |
+| name    | String |      | transaction或event的name名 |
+| item    | String |      | 监控项                     |
+| isAlert | String |      | 是否告警                   |
+
++ 备注
+
+```
+对于item在transaction和event时值不同
+transaction： 						  event:
+count		执行次数					count		执行次数
+avg			响应时间					failRatio	失败率
+failRatio	失败率
+max			最大响应时间
+```
+
+#### (5)、示例
+
+- 请求
+
+```
+{
+	"operation": "transaction"
+}
+```
+
+- 响应
+
+```
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": {
+        "ruleSimpInfoList": [
+            {
+                "domain": "cat",
+                "type": "URL",
+                "name": "All",
+                "item": "count",
+                "isAlert": "是"
+            },
+            {
+                "domain": "cat",
+                "type": "URL",
+                "name": "URL.Server",
+                "item": "count",
+                "isAlert": "是"
+            }
+        ]
+    }
+}
+```
+
+### 3.15、查询告警规则详情
+
+#### (1)、说明
+
+- 查询某个告警规则详情
+
+#### (2)、接口
+
+- URL：/alert/ruleInfo
+- Method：POST
+
+#### (3)、请求参数
+
+| 参数      | 类型   | 非空 | 取值                                                         | 备注 |
+| --------- | ------ | ---- | ------------------------------------------------------------ | ---- |
+| operation | String | 是   | transaction <br/>event                                       |      |
+| ruleId    | String | 是   | 列表每项值相加<br>domain;type;name;item<br>例如：cat;URL;URL.Method;count |      |
+
+#### (4)、响应参数
+
+| 参数          | 类型         | 取值 | 备注     |
+| ------------- | ------------ | ---- | -------- |
+| alertRuleList | AlertRule[ ] |      | 项目列表 |
+
+- AlertRule
+
+| 参数       | 类型         | 取值 | 备注         |
+| ---------- | ------------ | ---- | ------------ |
+| starttime  | String       |      | 规则开始时间 |
+| endtime    | String       |      | 规则结束时间 |
+| conditions | Condition[ ] |      |              |
+
+- Condition
+
+| 参数          | 类型            | 取值 | 备注     |
+| ------------- | --------------- | ---- | -------- |
+| minute        | number          |      | 持续时间 |
+| alertType     | String          |      | 告警类型 |
+| subConditions | SubCondition[ ] |      |          |
+
+- SubCondition
+
+| 参数 | 类型   | 取值 | 备注     |
+| ---- | ------ | ---- | -------- |
+| type | String |      | 规则类型 |
+| text | String |      | 阈值     |
+
+#### (5)、示例
+
+- 请求
+
+```
+{
+	"operation": "event",
+	"ruleId": "cat;URL;URL.Server;count"
+	
+}
+```
+
+- 响应
+
+```
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": {
+        "alertRuleList": [
+            {
+                "starttime": "00:00",
+                "endtime": "24:00",
+                "conditions": [
+                    {
+                        "subConditions": [
+                            {
+                                "type": "MinVal",
+                                "text": "100"
+                            },
+                            {
+                                "type": "MinVal",
+                                "text": "100"
+                            }
+                        ],
+                        "minute": 2,
+                        "alertType": "warning"
+                    },
+                    {
+                        "subConditions": [
+                            {
+                                "type": "MaxVal",
+                                "text": "20"
+                            }
+                        ],
+                        "minute": 2,
+                        "alertType": "warning"
+                    }
+                ]
+            },
+            {
+                "starttime": "00:00",
+                "endtime": "24:00",
+                "conditions": [
+                    {
+                        "subConditions": [
+                            {
+                                "type": "MaxVal",
+                                "text": "100"
+                            }
+                        ],
+                        "minute": 3,
+                        "alertType": "error"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+### 3.16、删除告警规则
+
+#### (1)、说明
+
+- 删除已有的告警规则
+
+#### (2)、接口
+
+- URL：/alert/delete
+- Method：POST
+
+#### (3)、请求参数
+
+| 参数      | 类型   | 非空 | 取值                                                         | 备注 |
+| --------- | ------ | ---- | ------------------------------------------------------------ | ---- |
+| operation | String | 是   | transaction <br/>event                                       |      |
+| ruleId    | String | 是   | 列表每项值相加<br>domain;type;name;item<br>例如：cat;URL;URL.Method;count |      |
+
+#### (4)、响应参数
+
+- 通用响应
+
+#### (5)、示例
+
+- 请求
+
+```
+{
+	"operation": "event",
+	"ruleId": "cat;URL;All;failRatio"
+}
+```
+
+- 响应
+
+```
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": null
+}
+```
+
+### 3.17、创建告警规则
+
+#### (1)、说明
+
+- 目前已添加的所有项目
+
+#### (2)、接口
+
+- URL：/alert/create
+- Method：POST
+
+#### (3)、请求参数
+
+| 参数          | 类型         | 非空 | 取值                                                         | 备注 |
+| ------------- | ------------ | ---- | ------------------------------------------------------------ | ---- |
+| operation     | String       | 是   | transaction <br/>event                                       |      |
+| ruleId        | String       | 是   | 列表每项值相加<br>domain;type;name;item<br>例如：cat;URL;URL.Method;count |      |
+| alertRuleList | AlertRule[ ] |      |                                                              |      |
+
+- AlertRule
+
+| 参数       | 类型         | 取值 | 备注         |
+| ---------- | ------------ | ---- | ------------ |
+| starttime  | String       |      | 规则开始时间 |
+| endtime    | String       |      | 规则结束时间 |
+| conditions | Condition[ ] |      |              |
+
+- Condition
+
+| 参数          | 类型            | 取值 | 备注     |
+| ------------- | --------------- | ---- | -------- |
+| minute        | number          |      | 持续时间 |
+| alertType     | String          |      | 告警类型 |
+| subConditions | SubCondition[ ] |      |          |
+
+- SubCondition
+
+| 参数 | 类型   | 取值 | 备注     |
+| ---- | ------ | ---- | -------- |
+| type | String |      | 规则类型 |
+| text | String |      | 阈值     |
+
+#### (4)、响应参数
+
+- 通用响应
+
+#### (5)、示例
+
+- 请求
+
+```
+{
+	"operation": "event",
+	"alertRuleList": [
+		{
+			"conditions":[
+				{
+					"sub-conditions":[
+						{
+							"type":"MaxVal","text":"50"
+						}],
+					"minute":"2",
+					"alertType":"warning"
+				}],
+			"starttime":"00:00",
+			"endtime":"24:00"
+		}],
+	"ruleId": "cat;URL;URL.Server;count",
+	"available": true
+	
+}
+```
+
+- 响应
+
+```
+{
+    "success": true,
+    "errorCode": 100000,
+    "errorMsg": "SUCCESS",
+    "result": null
+}
+```

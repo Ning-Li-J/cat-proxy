@@ -10,4 +10,6 @@ import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 public interface ILoginCommand {
 
     BaseResponse verifyLogin(LoginRequest request);
+
+    BaseResponse logout();
 }
