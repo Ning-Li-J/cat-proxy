@@ -7,4 +7,6 @@ package org.xupt.cat.proxy.api.constant;
 public class HttpSessionConstant {
 
     public static final String JSESSIONID = "JSESSIONID";
+
+    public static final String CREATE_SESSION_URL = SystemConstant.CONTEXT_PATH + "/auth/login";
 }
