@@ -23,6 +23,6 @@ public class AlertRuleSimpResponse {
 
         private String item;
 
-        private String isAlert;
+        private String available;
     }
 }

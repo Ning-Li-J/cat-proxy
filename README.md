@@ -1215,13 +1215,13 @@ http://106.13.67.118:7000/cat-proxy
 
 - RuleSimpInfo
 
-| 参数    | 类型   | 取值 | 备注                       |
-| ------- | ------ | ---- | -------------------------- |
-| domain  | String |      | 项目名字                   |
-| type    | String |      | transaction或event的type名 |
-| name    | String |      | transaction或event的name名 |
-| item    | String |      | 监控项                     |
-| isAlert | String |      | 是否告警                   |
+| 参数      | 类型   | 取值 | 备注                       |
+| --------- | ------ | ---- | -------------------------- |
+| domain    | String |      | 项目名字                   |
+| type      | String |      | transaction或event的type名 |
+| name      | String |      | transaction或event的name名 |
+| item      | String |      | 监控项                     |
+| available | String |      | 是否告警                   |
 
 + 备注
 
@@ -1258,14 +1258,14 @@ max			最大响应时间
                 "type": "URL",
                 "name": "All",
                 "item": "count",
-                "isAlert": "是"
+                "available": "是"
             },
             {
                 "domain": "cat",
                 "type": "URL",
                 "name": "URL.Server",
                 "item": "count",
-                "isAlert": "是"
+                "available": "是"
             }
         ]
     }
@@ -1452,7 +1452,8 @@ max			最大响应时间
 | ------------- | ------------ | ---- | ------------------------------------------------------------ | ---- |
 | operation     | String       | 是   | transaction <br/>event                                       |      |
 | ruleId        | String       | 是   | 列表每项值相加<br>domain;type;name;item<br>例如：cat;URL;URL.Method;count |      |
-| alertRuleList | AlertRule[ ] |      |                                                              |      |
+| alertRuleList | AlertRule[ ] | 是   |                                                              |      |
+| available     | String       | 是   | 是否告警。true / false                                       |      |
 
 - AlertRule
 

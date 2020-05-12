@@ -44,7 +44,7 @@ public class AlertCoreImp implements IAlertCore {
             ruleSimpInfo.setType(tdElements.get(1).text());
             ruleSimpInfo.setName(tdElements.get(2).text());
             ruleSimpInfo.setItem(tdElements.get(3).text());
-            ruleSimpInfo.setIsAlert(tdElements.get(4).text());
+            ruleSimpInfo.setAvailable(tdElements.get(4).text());
 
             ruleSimpInfoList.add(ruleSimpInfo);
         }

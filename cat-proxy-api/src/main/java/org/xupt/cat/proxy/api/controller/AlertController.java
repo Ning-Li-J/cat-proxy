@@ -42,7 +42,7 @@ public class AlertController {
 
     @Auch
     @RequestMapping(value = "/ruleInfo", method = RequestMethod.POST)
-    public BaseResponse queryRuleIndo(@Valid @RequestBody AlertRequest request) {
+    public BaseResponse queryRuleInfo(@Valid @RequestBody AlertRequest request) {
         log.info("query rule info. request :{}", JsonUtil.toJson(request));
         BaseResponse response = alertQuery.queryAlert(request);
         log.info("query rule info. response :{}", JsonUtil.toJson(response));
