@@ -1308,7 +1308,7 @@ max			最大响应时间
 
 | 参数          | 类型            | 取值 | 备注     |
 | ------------- | --------------- | ---- | -------- |
-| minute        | number          |      | 持续时间 |
+| minute        | String          |      | 持续时间 |
 | alertType     | String          |      | 告警类型 |
 | subConditions | SubCondition[ ] |      |          |
 
@@ -1355,7 +1355,7 @@ max			最大响应时间
                                 "text": "100"
                             }
                         ],
-                        "minute": 2,
+                        "minute": "2",
                         "alertType": "warning"
                     },
                     {
@@ -1365,7 +1365,7 @@ max			最大响应时间
                                 "text": "20"
                             }
                         ],
-                        "minute": 2,
+                        "minute": "2",
                         "alertType": "warning"
                     }
                 ]
@@ -1381,7 +1381,7 @@ max			最大响应时间
                                 "text": "100"
                             }
                         ],
-                        "minute": 3,
+                        "minute": "3",
                         "alertType": "error"
                     }
                 ]
@@ -1466,7 +1466,7 @@ max			最大响应时间
 
 | 参数          | 类型            | 取值 | 备注     |
 | ------------- | --------------- | ---- | -------- |
-| minute        | number          |      | 持续时间 |
+| minute        | String          |      | 持续时间 |
 | alertType     | String          |      | 告警类型 |
 | subConditions | SubCondition[ ] |      |          |
 
@@ -1492,7 +1492,7 @@ max			最大响应时间
 		{
 			"conditions":[
 				{
-					"sub-conditions":[
+					"subConditions":[
 						{
 							"type":"MaxVal","text":"50"
 						}],

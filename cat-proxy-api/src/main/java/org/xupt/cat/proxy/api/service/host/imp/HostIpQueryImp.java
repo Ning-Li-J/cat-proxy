@@ -50,7 +50,7 @@ public class HostIpQueryImp implements IHostIpQuery {
     private CatDTO covert(HostIpRequest request) {
         CatDTO catDTO = new CatDTO();
         catDTO.setIp("All");
-        catDTO.setDomain("cat");
+        catDTO.setDomain(request.getDomain());
         catDTO.setReportType("day");
         catDTO.setOp(CatConstant.OP_VIEW);
         catDTO.setDate(DateUtil.nowYYYYMMDDHH());

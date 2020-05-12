@@ -12,7 +12,7 @@ import java.util.List;
 public class Condition {
     private List<SubCondition> subConditions;
 
-    private Integer minute;
+    private String minute;
 
     private String alertType;
 

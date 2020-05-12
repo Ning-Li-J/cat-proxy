@@ -22,7 +22,7 @@ public class SystemConstant {
     public static String CONTEXT_PATH = "/cat-proxy";
 
     // cat地址
-    public static String CAT_IP_PORT = "http://localhost:8080/cat";
+    public static String CAT_IP_PORT = "http://106.13.67.118:8080/cat";
 
     private static final String PORT_NAME = "appPort";
     private static final String CONTEXT_PATH_NAME = "appContext";
