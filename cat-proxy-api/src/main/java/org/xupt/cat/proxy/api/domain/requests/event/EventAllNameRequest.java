@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * @data 2020-04-08 下午12:37
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class EventAllNameRequest extends BaseRequest {
 
     @NotBlank(message = "type can not be empty!")

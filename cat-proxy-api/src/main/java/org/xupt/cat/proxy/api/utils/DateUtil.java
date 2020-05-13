@@ -14,7 +14,6 @@ public class DateUtil {
     private static final DecimalFormat twoIntDF = new DecimalFormat("00");
 
 
-
     public static String nowYYYYMMDDHH() {
         return YYYYMMDDHH(LocalDateTime.now());
     }

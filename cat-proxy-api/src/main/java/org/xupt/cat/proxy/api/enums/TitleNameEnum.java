@@ -54,6 +54,7 @@ public enum TitleNameEnum {
 
     private String catTitle;
     private String nowTitle;
+
     TitleNameEnum(String catTitle, String nowTitle) {
         this.catTitle = catTitle;
         this.nowTitle = nowTitle;

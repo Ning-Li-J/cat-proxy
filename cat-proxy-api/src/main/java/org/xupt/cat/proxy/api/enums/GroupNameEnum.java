@@ -12,8 +12,7 @@ public enum GroupNameEnum {
     FRAMEWORK_THREAD_INFO("FrameworkThread Info", "应用线程指标"),
     DISK_INFO("Disk Info", "磁盘指标"),
     CAT_USAGE_INFO("CatUsage Info", "监控系统指标"),
-    CLIENT_SEND_QUEUE_INFO("client-send-queue Info", "客户端队列指标")
-    ;
+    CLIENT_SEND_QUEUE_INFO("client-send-queue Info", "客户端队列指标");
 
     private String catGroup;
     private String nowGroup;

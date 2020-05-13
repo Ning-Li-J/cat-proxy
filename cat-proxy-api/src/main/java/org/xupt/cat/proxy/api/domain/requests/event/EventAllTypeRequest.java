@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * @data 2020-04-08 下午12:36
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class EventAllTypeRequest extends BaseRequest {
 
     @NotBlank

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  * @data 2020-04-19 上午10:27
  */
 @Data
-public class ProjectRequest{
+public class ProjectRequest {
 
     @NotBlank
     private String department;

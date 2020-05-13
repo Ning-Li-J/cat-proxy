@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 接口Auch校验
+ *
  * @author lining
  * @data 2020-04-15 下午5:02
  */

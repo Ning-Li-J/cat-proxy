@@ -59,7 +59,7 @@ public class AlertCoreImp implements IAlertCore {
         log.info("start covert rule ......");
         AlertRuleResponse response = new AlertRuleResponse();
 
-        Matcher matcher= RULE_PATTERN.matcher(document.toString());
+        Matcher matcher = RULE_PATTERN.matcher(document.toString());
         String json = null;
         while (matcher.find()) {
             json = matcher.group(1);
@@ -71,7 +71,8 @@ public class AlertCoreImp implements IAlertCore {
         }
 
         json = json.replaceAll("sub-conditions", "subConditions");
-        List<AlertRule> alertRuleList = JsonUtil.fromJson(json, new TypeReference<List<AlertRule>>() {});
+        List<AlertRule> alertRuleList = JsonUtil.fromJson(json, new TypeReference<List<AlertRule>>() {
+        });
 
         response.setAlertRuleList(alertRuleList);
         return response;

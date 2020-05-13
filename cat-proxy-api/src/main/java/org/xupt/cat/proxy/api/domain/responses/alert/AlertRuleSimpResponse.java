@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class AlertRuleSimpResponse {
 
-    private List<RuleSimpInfo > ruleSimpInfoList;
+    private List<RuleSimpInfo> ruleSimpInfoList;
 
     @Data
     public static class RuleSimpInfo {

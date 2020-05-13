@@ -72,7 +72,7 @@ public class TransactionNameInfoQueryImp implements ITransactionNameInfoQuery {
         catDTO.setName(request.getName());
         catDTO.setOp(CatConstant.OP_GRAPHS);
         if (Objects.nonNull(request.getStep())) {
-            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat( - request.getStep()));
+            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat(-request.getStep()));
         } else {
             catDTO.setDate(DateUtil.nowYYYYMMDDHH());
         }

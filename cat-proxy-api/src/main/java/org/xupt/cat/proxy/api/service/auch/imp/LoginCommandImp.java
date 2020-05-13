@@ -49,7 +49,7 @@ public class LoginCommandImp implements ILoginCommand {
             return ResponseUtil.buildFailResponce(ErrorCode.USER_NO_EXIST);
         }
 
-        if(!SystemConstant.USER_MAP.get(request.getUid()).equals(request.getPwd())) {
+        if (!SystemConstant.USER_MAP.get(request.getUid()).equals(request.getPwd())) {
             return ResponseUtil.buildFailResponce(ErrorCode.PWD_ERROR);
         }
 
@@ -83,8 +83,6 @@ public class LoginCommandImp implements ILoginCommand {
 
         return null;
     }*/
-
-
 
 
 }

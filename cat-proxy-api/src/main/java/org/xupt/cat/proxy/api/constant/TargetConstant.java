@@ -6,8 +6,8 @@ package org.xupt.cat.proxy.api.constant;
  */
 public class TargetConstant {
 
-    public static final String[] INDEX_MINUTE = { "0",  "1",  "2",  "3",  "4",
-            "5",  "6",  "7",  "8",  "9",
+    public static final String[] INDEX_MINUTE = {"0", "1", "2", "3", "4",
+            "5", "6", "7", "8", "9",
             "10", "11", "12", "13", "14",
             "15", "16", "17", "18", "19",
             "20", "21", "22", "23", "24",
@@ -20,9 +20,9 @@ public class TargetConstant {
             "55", "56", "57", "58", "59"
     };
 
-    public static final String[] INDEX_MILL = { "0",     "1",     "2",      "4",      "8",
-            "16",    "32",    "64",     "128",    "256",
-            "512",   "1024",  "2048",   "4096",   "8192",
+    public static final String[] INDEX_MILL = {"0", "1", "2", "4", "8",
+            "16", "32", "64", "128", "256",
+            "512", "1024", "2048", "4096", "8192",
             "16384", "32768", "65536"
     };
 }

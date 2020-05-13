@@ -42,7 +42,7 @@ public class TransactionAllNameQueryImp implements ITransactionAllNameQuery {
         CatDTO catDTO = covert(request);
 
         //发送请求
-        Document document= null;
+        Document document = null;
         try {
             document = HttpProxyUtil.sendGetHttp(CatConstant.TRANSACTION_URI,
                     JsonUtil.toMap(catDTO), null);

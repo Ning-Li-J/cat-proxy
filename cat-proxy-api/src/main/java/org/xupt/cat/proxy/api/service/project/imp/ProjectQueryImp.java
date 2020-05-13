@@ -37,7 +37,7 @@ public class ProjectQueryImp implements IProjectQuery {
             document = HttpProxyUtil.sendGetHttp(CatConstant.QUERY_PROJECT_URI,
                     JsonUtil.toMap(covert()), null);
         } catch (Exception e) {
-            log.error("Query all project all error! e :{}",  e);
+            log.error("Query all project all error! e :{}", e);
         }
 
         if (Objects.isNull(document)) {

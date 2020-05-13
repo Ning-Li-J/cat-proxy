@@ -70,7 +70,7 @@ public class EventTypeInfoQueryImp implements IEventTypeInfoQuery {
         if (Objects.isNull(request.getStep())) {
             catDTO.setDate(DateUtil.nowYYYYMMDDHH());
         } else {
-            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat( -request.getStep()));
+            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat(-request.getStep()));
         }
         return catDTO;
     }

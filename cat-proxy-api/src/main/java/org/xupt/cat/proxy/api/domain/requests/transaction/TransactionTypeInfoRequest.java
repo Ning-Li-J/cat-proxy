@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * @data 2020-04-07 下午12:33
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class TransactionTypeInfoRequest extends BaseRequest {
 
     @NotBlank

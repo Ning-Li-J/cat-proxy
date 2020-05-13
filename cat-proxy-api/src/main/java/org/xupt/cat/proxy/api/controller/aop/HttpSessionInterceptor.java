@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 获取Session，并放入到ThreadLocal中
+ *
  * @author lining
  * @data 2020/1/2
  */

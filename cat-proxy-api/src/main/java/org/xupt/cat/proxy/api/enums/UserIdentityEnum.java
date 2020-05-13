@@ -2,6 +2,7 @@ package org.xupt.cat.proxy.api.enums;
 
 /**
  * 用户身份
+ *
  * @author lining
  * @data 2020-04-11 下午6:13
  */
