@@ -43,7 +43,7 @@ public class TransactionAllTypeQueryImp implements ITransactionAllTypeQuery {
         CatDTO catDTO = covert(request);
 
         //发送请求
-        Document document= null;
+        Document document = null;
         try {
             document = HttpProxyUtil.sendGetHttp(CatConstant.TRANSACTION_URI,
                     JsonUtil.toMap(catDTO), null);

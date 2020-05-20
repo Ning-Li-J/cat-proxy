@@ -14,6 +14,7 @@ import java.util.Map;
 @Slf4j
 public class JsonUtil {
     private static ObjectMapper objectMapper = new ObjectMapper();
+
     static {
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -42,7 +43,7 @@ public class JsonUtil {
 
     public static <T> T fromJson(String json, Class<T> clazz) {
         try {
-            return (T)objectMapper.readValue(json, clazz);
+            return (T) objectMapper.readValue(json, clazz);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
@@ -53,7 +54,7 @@ public class JsonUtil {
         return objectMapper.convertValue(map, clazz);
     }
 
-    public static <T> T fromJson(String json, TypeReference<T> type){
+    public static <T> T fromJson(String json, TypeReference<T> type) {
         try {
             return (T) objectMapper.readValue(json, type);
         } catch (IOException e) {

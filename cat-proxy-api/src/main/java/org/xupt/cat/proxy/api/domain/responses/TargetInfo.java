@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 每个表格的信息
+ *
  * @author lining
  * @data 2020-04-08 下午4:01
  */

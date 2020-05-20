@@ -19,6 +19,7 @@ public enum ErrorCode implements BaseEnum {
 
     private int code;
     private String desc;
+
     ErrorCode(int code, String desc) {
         this.code = code;
         this.desc = desc;

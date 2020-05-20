@@ -35,6 +35,7 @@ public class CatProxyApiApplicationTests {
 
     @Autowired
     private ICore core;
+
     //@Test
     public void test() throws IOException {
         Map<String, String> param = new HashMap<>();
@@ -64,11 +65,11 @@ public class CatProxyApiApplicationTests {
 
     }
 
-    private static class Text{
+    private static class Text {
         private List<Condition.SubCondition> subConditions;
     }
 
-    public static class MyTe{
+    public static class MyTe {
         private String name;
     }
 

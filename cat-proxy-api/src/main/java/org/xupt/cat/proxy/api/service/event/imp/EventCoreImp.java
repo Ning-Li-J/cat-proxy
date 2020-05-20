@@ -37,7 +37,7 @@ public class EventCoreImp implements IEventCore {
         boolean isFirst = true;
         Elements elements = document.getElementsByClass("right");
         for (Element element : elements) {
-            if ( !"tr".equals(element.tagName())) {
+            if (!"tr".equals(element.tagName())) {
                 continue;
             }
 

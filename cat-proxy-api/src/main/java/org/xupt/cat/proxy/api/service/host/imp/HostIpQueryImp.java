@@ -37,7 +37,7 @@ public class HostIpQueryImp implements IHostIpQuery {
             document = HttpProxyUtil.sendGetHttp(CatConstant.QUERY_PROJECT_URI,
                     JsonUtil.toMap(covert(request)), null);
         } catch (Exception e) {
-            log.info("Query host ip error! e :{}",  e);
+            log.info("Query host ip error! e :{}", e);
         }
 
         if (Objects.isNull(document)) {
@@ -50,7 +50,7 @@ public class HostIpQueryImp implements IHostIpQuery {
     private CatDTO covert(HostIpRequest request) {
         CatDTO catDTO = new CatDTO();
         catDTO.setIp("All");
-        catDTO.setDomain("cat");
+        catDTO.setDomain(request.getDomain());
         catDTO.setReportType("day");
         catDTO.setOp(CatConstant.OP_VIEW);
         catDTO.setDate(DateUtil.nowYYYYMMDDHH());

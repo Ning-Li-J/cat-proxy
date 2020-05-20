@@ -12,7 +12,7 @@ import java.util.List;
  * @data 2020-04-19 下午6:57
  */
 @Data
-public class AlertInfoRequest extends AlertBaseRequest{
+public class AlertInfoRequest extends AlertBaseRequest {
 
     @NotNull
     private List<AlertRule> alertRuleList;

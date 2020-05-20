@@ -6,6 +6,8 @@ package org.xupt.cat.proxy.api.enums;
  */
 public interface BaseEnum {
     int getCode();
+
     String getName();
+
     String getDesc();
 }

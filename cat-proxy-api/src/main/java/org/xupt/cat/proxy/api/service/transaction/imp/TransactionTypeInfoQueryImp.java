@@ -71,7 +71,7 @@ public class TransactionTypeInfoQueryImp implements ITransactionTypeInfoQuery {
         catDTO.setOp(CatConstant.OP_GRAPHS);
         catDTO.setType(request.getType());
         if (Objects.nonNull(request.getStep())) {
-            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat( - request.getStep()));
+            catDTO.setDate(DateUtil.nowYYYYMMDDHHRetreat(-request.getStep()));
         } else {
             catDTO.setDate(DateUtil.nowYYYYMMDDHH());
         }

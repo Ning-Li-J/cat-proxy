@@ -13,7 +13,7 @@ public class TransactionResponse {
     private List<Transaction> transactionList;
 
     @Data
-    public static class Transaction{
+    public static class Transaction {
         private String name;
         private String total;
         private String failure;

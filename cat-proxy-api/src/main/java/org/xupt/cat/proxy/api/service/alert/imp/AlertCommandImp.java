@@ -76,7 +76,7 @@ public class AlertCommandImp implements IAlertCommand {
         }
         catDTO.setRuleId(request.getRuleId());
         catDTO.setAvailable(request.getAvailable());
-        catDTO.setConfigs(JsonUtil.toJson(request.getAlertRuleList()));
+        catDTO.setConfigs(JsonUtil.toJson(request.getAlertRuleList()).replaceAll("subConditions", "sub-conditions"));
 
         Document document = null;
         try {

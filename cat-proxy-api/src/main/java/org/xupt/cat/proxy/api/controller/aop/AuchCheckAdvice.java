@@ -17,6 +17,7 @@ import java.util.Objects;
 
 /**
  * 利用aop，对接口权限校验
+ *
  * @author lining
  * @data 2020-04-15 下午4:38
  */
@@ -26,7 +27,8 @@ import java.util.Objects;
 public class AuchCheckAdvice {
 
     @Pointcut("execution(* org.xupt.cat.proxy.api.controller.*.*(..))")
-    public void auchCheck() {}
+    public void auchCheck() {
+    }
 
     @Before("auchCheck()")
     public void doBefore(JoinPoint jp) {

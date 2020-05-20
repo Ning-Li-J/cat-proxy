@@ -11,6 +11,7 @@ public class ResponseUtil {
 
     /**
      * 构建失败响应
+     *
      * @param errorCode
      * @return
      */
@@ -23,6 +24,7 @@ public class ResponseUtil {
 
     /**
      * 构建成功响应
+     *
      * @param result
      * @return
      */

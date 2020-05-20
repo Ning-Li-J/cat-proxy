@@ -61,7 +61,7 @@ public class AlertQueryImp implements IAlertQuery {
     }
 
     @Override
-    public BaseResponse  queryAlert(AlertRequest request) {
+    public BaseResponse queryAlert(AlertRequest request) {
         CatDTO catDTO = new CatDTO();
         switch (request.getOperation()) {
             case "transaction":
