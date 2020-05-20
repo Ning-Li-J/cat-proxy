@@ -12,8 +12,10 @@ import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.service.alert.IAlertCommand;
 import org.xupt.cat.proxy.api.service.alert.IAlertQuery;
 import org.xupt.cat.proxy.api.utils.JsonUtil;
+import org.xupt.cat.proxy.api.utils.ResponseUtil;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * @author lining
@@ -64,6 +66,14 @@ public class AlertController {
         log.info("create/update rule. request :{}", JsonUtil.toJson(request));
         BaseResponse response = alertCommand.createAlertRule(request);
         log.info("create/update rule. response :{}", JsonUtil.toJson(response));
+        return response;
+    }
+
+    @RequestMapping(value = "/mail/send", method = {RequestMethod.POST, RequestMethod.GET})
+    public BaseResponse sendMail(@RequestParam Map map) {
+        log.info("send alert email. request :{}", JsonUtil.toJson(map));
+        BaseResponse response = alertCommand.sendAlertEmail(map);
+        log.info("send alert email. response :{}", JsonUtil.toJson(response));
         return response;
     }
 

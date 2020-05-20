@@ -13,7 +13,8 @@ public enum ErrorCode implements BaseEnum {
     USER_NO_EXIST(500003, "uid not exist"),
     PWD_ERROR(500004, "wrong pwd"),
     NO_LOGIN(500005, "not log in, please log in!"),
-    LOGOUT_ERROR(500006, "登出失败");
+    LOGOUT_ERROR(500006, "登出失败"),
+    SEND_EMAIL_ERROR(500007, "发送邮件失败");
 
 
     private int code;

@@ -4,6 +4,8 @@ import org.xupt.cat.proxy.api.domain.requests.alert.AlertInfoRequest;
 import org.xupt.cat.proxy.api.domain.requests.alert.AlertRequest;
 import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 
+import java.util.Map;
+
 /**
  * @author lining
  * @data 2020-04-19 下午6:35
@@ -13,4 +15,6 @@ public interface IAlertCommand {
     BaseResponse deletAlertRule(AlertRequest request);
 
     BaseResponse createAlertRule(AlertInfoRequest request);
+
+    BaseResponse sendAlertEmail(Map map);
 }

@@ -1,4 +1,4 @@
-package org.xupt.cat.proxy.api.controller.config;
+package org.xupt.cat.proxy.api.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

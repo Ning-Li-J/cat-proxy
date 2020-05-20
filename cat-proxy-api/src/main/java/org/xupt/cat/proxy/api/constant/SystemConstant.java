@@ -13,16 +13,17 @@ import java.util.Objects;
  */
 @Slf4j
 public class SystemConstant {
-    public static final Map<String, String> USER_MAP = new HashMap();
-
+    // cat地址
+    public static String CAT_IP_PORT = "http://localhost:8080/cat";
     // cat-proxy端口
     public static Integer PORT = 7000;
-
     // cat-proxy上下文
     public static String CONTEXT_PATH = "/cat-proxy";
 
-    // cat地址
-    public static String CAT_IP_PORT = "http://localhost:8080/cat";
+    //登录用户名密码
+    public static final Map<String, String> USER_MAP = new HashMap();
+
+    public static final String[] USER_EMAIL = new String[]{"lning9898@Gmail.com", "1205670683@qq.com"};
 
     private static final String PORT_NAME = "appPort";
     private static final String CONTEXT_PATH_NAME = "appContext";

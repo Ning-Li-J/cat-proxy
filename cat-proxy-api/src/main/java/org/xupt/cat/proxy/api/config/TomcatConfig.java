@@ -1,4 +1,4 @@
-package org.xupt.cat.proxy.api.controller.config;
+package org.xupt.cat.proxy.api.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.Connector;
