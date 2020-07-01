@@ -14,13 +14,12 @@ import org.xupt.cat.proxy.api.domain.responses.BaseResponse;
 import org.xupt.cat.proxy.api.enums.ErrorCode;
 import org.xupt.cat.proxy.api.service.alert.IAlertCommand;
 import org.xupt.cat.proxy.api.service.alert.IEmailCommand;
-import org.xupt.cat.proxy.api.utils.CatAuchUtil;
-import org.xupt.cat.proxy.api.utils.HttpProxyUtil;
-import org.xupt.cat.proxy.api.utils.JsonUtil;
-import org.xupt.cat.proxy.api.utils.ResponseUtil;
+import org.xupt.cat.proxy.api.utils.*;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author lining
@@ -98,7 +97,7 @@ public class AlertCommandImp implements IAlertCommand {
             return ResponseUtil.buildFailResponce(ErrorCode.REQUEST_PARAM_ERROR);
         }
         try {
-            emailCommand.setTextMail(SystemConstant.USER_EMAIL, "监控报警", "irs-devops@qq.com", "ERROR NOTICE", JsonUtil.toJson(map));
+            emailCommand.setTextMail(SystemConstant.USER_EMAIL, "监控报警", "irs-devops@qq.com", "ERROR NOTICE", dealAlertNotice(map));
         } catch (Exception e) {
             log.error("Alert command. send error notice email error! e :{}", e);
             return ResponseUtil.buildFailResponce(ErrorCode.SEND_EMAIL_ERROR);
@@ -106,4 +105,14 @@ public class AlertCommandImp implements IAlertCommand {
         return ResponseUtil.buildSuccessResponce();
     }
 
+    private String dealAlertNotice(Map map) {
+        String value = map.get("value").toString();
+        value = EncodingAndUnEncodingUtil.unicodeToUTF8(value);
+
+        //删除CAT
+        value = value.replaceAll("CAT", "");
+        //删除连接
+        value = value.replaceAll("<a.*>", "");
+        return value;
+    }
 }

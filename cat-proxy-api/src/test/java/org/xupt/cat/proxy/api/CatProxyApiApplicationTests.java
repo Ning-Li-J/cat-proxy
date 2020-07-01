@@ -36,23 +36,10 @@ public class CatProxyApiApplicationTests {
     @Autowired
     private ICore core;
 
-    //@Test
+    @Test
     public void test() throws IOException {
-        Map<String, String> param = new HashMap<>();
-        param.put("op", "eventRuleDelete");
-        param.put("ruleId", "cat;URL;URL.Server;count");
-
-        //String cookie = "ct=admin|admin|1587211029247|127.0.0.1|526355560";
-        String cookie = "ct=" + buildCookie();
-
-        Document document = null;
-        try {
-            document = HttpProxyUtil.sendGetHttp("/s/config", param, cookie);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(document);
+        String value = "[CAT Transaction\\u544A\\u8B66] [\\u9879\\u76EE: thoughtcoding-api] [\\u76D1\\u63A7\\u9879: URL-/thoughtcoding/api    /auth/login-count],[CAT Transaction\\u544A\\u8B66: thoughtcoding-api URL /thoughtcoding/api/auth/login] : [\\u5B9E\\u9645\\u503C:20 ] [\\u5B9E\\u9645\\u503C\\u603B\\u548C:20] [\\u603B\\u548C\\u670    0\\u5927\\u9608\\u503C: 10 ][\\u544A\\u8B66\\u65F6\\u95F4:2020-06-03 19:28:03]<br/>[\\u65F6\\u95F4: 2020-06-03 19:28] \\n<a href='http://cat-web-server/cat/r/t?domain=thoughtcoding-api&type=URL    &name=/thoughtcoding/api/auth/login&date=2020060319'>\\u70B9\\u51FB\\u6B64\\u5904\\u67E5\\u770B\\u8BE6\\u60C5</a><br/><br/>[\\u544A\\u8B66\\u95F4\\u9694\\u65F6\\u95F4]1\\u5206\\u949F";
+        System.out.println(value);
     }
 
     @Test
